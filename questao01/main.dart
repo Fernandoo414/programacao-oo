@@ -1,3 +1,11 @@
 void main(){
-	print("fazendo testes");
+    pessoa pessoa1 = pessoa();
+
+	print(pessoa1.idade);
+}
+
+
+class pessoa{
+    String nome = 'Fernando';
+    int idade = 20;
 }
