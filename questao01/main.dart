@@ -1,11 +1,13 @@
-void main(){
-    pessoa pessoa1 = pessoa();
+import 'pessoa.dart';
 
-	print(pessoa1.idade);
-}
+void main() {
+  // Criando 3 pessoas (variaveis)
+  var p1 = Pessoa('Ana', 25);
+  var p2 = Pessoa('Carlos', 30);
+  var p3 = Pessoa('Mariana', 20);
 
-
-class pessoa{
-    String nome = 'Fernando';
-    int idade = 20;
+  // Exibindo dados (metodo)
+  p1.exibirDados();
+  p2.exibirDados();
+  p3.exibirDados();
 }
