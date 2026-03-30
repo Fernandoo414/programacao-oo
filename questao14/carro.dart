@@ -23,13 +23,13 @@ class Carro {
         }
     }
 
-    exibirMotor(){
-
+    void exibirMotor(){
+        print("Potencia: ${motor.potencia}");
+        print("Tipo: ${motor.tipo}");
     }
 
-
-    exibirCarro(){
-        
+    void exibirCarro(){
+        print("O modelo eh: $modelo");
+        exibirMotor();
     }
-
 }
