@@ -28,9 +28,7 @@ class Endereco{
         }
     }
 
-
     exibirEndereco(){
-
         String cep0 = "";
         String cep1 = "";
         String cep2 = "";
