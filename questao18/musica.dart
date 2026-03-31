@@ -30,26 +30,26 @@ class playlist{
 
     int calcularDuracaoTotal(){
         int total = musica1.duracaoSegundos + musica2.duracaoSegundos + musica3.duracaoSegundos;
+        print(total);
         return total;
     }
 
-    tocarPlaylist(){
-        
+    void tocarPlaylist(){
+        print("Tocando playlist...");
+        print("$musica1");
+        print("Na sequência");
+        print("$musica2");
+        print("$musica3");
+
     }
 
     void exibirPlaylist(){
         print("PlayList: $nome");
-        print("Titulo: ${musica1.titulo}");
-        print("Artista: ${musica1.artista}");
-        print("Segundos de musica ${musica1.duracaoSegundos}");
-        print("");
-        print("Titulo: ${musica2.titulo}");
-        print("Artista: ${musica2.artista}");
-        print("Segundos de musica ${musica2.duracaoSegundos}");
-        print("");
-        print("Titulo: ${musica3.titulo}");
-        print("Artista: ${musica3.artista}");
-        print("Segundos de musica ${musica3.duracaoSegundos}");
-        print("");
+        print("${musica1.titulo} - ${musica1.artista}");
+        print("Segundos de musica ${musica1.duracaoSegundos}\n");
+        print("${musica2.titulo} - ${musica2.artista}");
+        print("Segundos de musica ${musica2.duracaoSegundos}\n");
+        print("${musica2.titulo} - ${musica3.artista}");
+        print("Segundos de musica ${musica3.duracaoSegundos}\n");
        }
 }
