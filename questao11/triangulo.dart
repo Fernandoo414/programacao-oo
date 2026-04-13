@@ -10,16 +10,16 @@ class Triangulo {
   Triangulo(this._lado1, this._lado2, this._lado3, this._caractere) {
     _validarTriangulo(_lado1, _lado2, _lado3);
     if (_caractere.isEmpty || _caractere.length > 1) {
-      throw ArgumentError("O caractere deve ter exatamente 1 símbolo e não ser vazio.");
+      print("O caractere deve ter exatamente 1 símbolo e não ser vazio.");
     }
   }
 
   void _validarTriangulo(double a, double b, double c) {
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw ArgumentError("Os lados devem ser maiores que 0.");
+      print("Os lados devem ser maiores que 0.");
     }
     if (!(a + b > c && a + c > b && b + c > a)) {
-      throw ArgumentError("Os lados informados não formam um triangulo valido.");
+      print("Os lados informados não formam um triangulo valido.");
     }
   }
 

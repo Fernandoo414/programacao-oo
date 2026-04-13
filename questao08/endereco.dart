@@ -10,22 +10,22 @@ class Endereco {
 
   Endereco(this._rua, this._numero, this._bairro, this._cidade, this._estado, this._cep) {
     if (_rua.trim().isEmpty) {
-      throw ArgumentError("A rua precisa conter as informacoes");
+      print("A rua precisa conter as informacoes");
     }
     if (_numero <= 0) {
-      throw ArgumentError("O numero nao pode ser abaixo de 0");
+      print("O numero nao pode ser abaixo de 0");
     }
     if (_bairro.trim().isEmpty) {
-      throw ArgumentError("O bairro precisa conter informacoes pedidas");
+      print("O bairro precisa conter informacoes pedidas");
     }
     if (_cidade.trim().isEmpty) {
-      throw ArgumentError("Precisa conter as informacoes da cidade");
+      print("Precisa conter as informacoes da cidade");
     }
     if (_estado.trim().isEmpty) {
-      throw ArgumentError("Precisa ser um Estado valido");
+      print("Precisa ser um Estado valido");
     }
     if (_cep < 10000000 || _cep > 99999999) {
-      throw ArgumentError("o cep tem que ser valido: maior que 8 digitos e menor que 8 ");
+      print("o cep tem que ser valido: maior que 8 digitos e menor que 8 ");
     }
   }
 

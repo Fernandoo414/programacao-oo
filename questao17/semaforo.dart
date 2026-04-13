@@ -18,7 +18,7 @@ class Semaforo {
 
   set tempoRestante(int t) {
     if (t < 0) {
-      throw ArgumentError("Tempo nao pode ser negativo");
+      print("Tempo nao pode ser negativo");
     }
     _tempoRestante = t;
   }
@@ -27,7 +27,7 @@ class Semaforo {
     if (_corAtual != "vermelho" &&
         _corAtual != "verde" &&
         _corAtual != "amarelo") {
-      throw ArgumentError("Cor invalida: use vermelho, verde ou amarelo");
+      print("Cor invalida: use vermelho, verde ou amarelo");
     }
   }
 

@@ -8,7 +8,7 @@ class Cofrinho {
 
   set saldo(double valor) {
     if (valor < 0) {
-      throw ArgumentError("O saldo nao pode ser negativo");
+      print("O saldo nao pode ser negativo");
     }
     _saldo = valor;
   }
@@ -22,7 +22,7 @@ class Cofrinho {
       _saldo += valor;
       _quantidadeDepositos++;
     } else {
-      throw ArgumentError("O valor do deposito deve ser maior que zero");
+      print("O valor do deposito deve ser maior que zero");
     }
   }
 

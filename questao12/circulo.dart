@@ -7,10 +7,10 @@ class Circulo {
 
   Circulo(this._raio, this._cor) {
     if (_raio <= 0) {
-      throw ArgumentError("O raio tem que ser maior que 0");
+      print("O raio tem que ser maior que 0");
     }
     if (_cor.trim().isEmpty) {
-      throw ArgumentError("A cor nao pode ser vazia");
+      print("A cor nao pode ser vazia");
     }
   }
 

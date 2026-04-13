@@ -9,13 +9,13 @@ class Pessoa {
 
   Pessoa(this._nome, this._idade, this._cpf, this._endereco) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     if (_idade < 0) {
-      throw ArgumentError("A idade deve ser maior ou igual a 0");
+      print("A idade deve ser maior ou igual a 0");
     }
     if (_cpf.trim().isEmpty) {
-      throw ArgumentError("O CPF nao pode ser vazio");
+      print("O CPF nao pode ser vazio");
     }
   }
 

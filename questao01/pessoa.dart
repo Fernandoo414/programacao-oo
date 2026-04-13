@@ -4,10 +4,10 @@ class Pessoa {
 
   Pessoa(this._nome, this._idade) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError('O nome não pode ser vazio.');
+      print('O nome não pode ser vazio.');
     }
     if (_idade < 0) {
-      throw ArgumentError('A idade deve ser maior ou igual a 0.');
+      print('A idade deve ser maior ou igual a 0.');
     }
   }
 
@@ -15,7 +15,7 @@ class Pessoa {
 
   set nome(String novoNome) {
     if (novoNome.trim().isEmpty) {
-      throw ArgumentError('O nome não pode ser vazio.');
+      print('O nome não pode ser vazio.');
     }
     _nome = novoNome;
   }
@@ -24,7 +24,7 @@ class Pessoa {
 
   set idade(int novaIdade) {
     if (novaIdade < 0) {
-      throw ArgumentError('A idade deve ser maior ou igual a 0.');
+      print('A idade deve ser maior ou igual a 0.');
     }
     _idade = novaIdade;
   }

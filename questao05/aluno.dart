@@ -7,13 +7,13 @@ class Aluno {
 
   Aluno(this._nome, this._nota1, this._nota2) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError('O nome nao pode ser vazio');
+      print('O nome nao pode ser vazio');
     }
     if (_nota1 < 0 || _nota1 > 10) {
-      throw ArgumentError('A nota1 deve estar entre 0 e 10');
+      print('A nota1 deve estar entre 0 e 10');
     }
     if (_nota2 < 0 || _nota2 > 10) {
-      throw ArgumentError('A nota2 deve estar entre 0 e 10');
+      print('A nota2 deve estar entre 0 e 10');
     }
   }
 

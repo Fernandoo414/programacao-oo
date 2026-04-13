@@ -6,10 +6,10 @@ class Quadrado {
 
   Quadrado(this._lado, this._caractere) {
     if (_lado <= 0) {
-      throw ArgumentError("O lado do quadrado deve ser maior que 0");
+      print("O lado do quadrado deve ser maior que 0");
     }
     if (_caractere.length > 1 || _caractere.trim().isEmpty) {
-      throw ArgumentError("Nao pode ter mais de 1 caracter e nao pode ser vazia");
+      print("Nao pode ter mais de 1 caracter e nao pode ser vazia");
     }
   }
 

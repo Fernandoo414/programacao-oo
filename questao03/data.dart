@@ -7,13 +7,13 @@ class Data {
 
   Data(this._dia, this._mes, this._ano) {
     if (_dia < 1 || _dia > 31) {
-      throw ArgumentError('O dia deve estar entre 1 a 31');
+      print('O dia deve estar entre 1 a 31');
     }
     if (_mes < 1 || _mes > 12) {
-      throw ArgumentError('O mes deve estar entre 1 a 12 minutos');
+      print('O mes deve estar entre 1 a 12');
     }
     if (_ano < 0) {
-      throw ArgumentError('O ano deve ser maior que 0');
+      print('O ano deve ser maior que 0');
     }
   }
 

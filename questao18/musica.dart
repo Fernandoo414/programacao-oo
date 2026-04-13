@@ -5,13 +5,13 @@ class Musica {
 
   Musica(this._titulo, this._artista, this._duracaoSegundos) {
     if (_titulo.trim().isEmpty) {
-      throw ArgumentError("O titulo da musica nao pode ser vazio");
+      print("O titulo da musica nao pode ser vazio");
     }
     if (_artista.trim().isEmpty) {
-      throw ArgumentError("O nome do artista nao pode ser vazio");
+      print("O nome do artista nao pode ser vazio");
     }
     if (_duracaoSegundos <= 0) {
-      throw ArgumentError("A duracao em segundos tem que ser maior que 0");
+      print("A duracao em segundos tem que ser maior que 0");
     }
   }
 
@@ -21,21 +21,21 @@ class Musica {
 
   set titulo(String t) {
     if (t.trim().isEmpty) {
-      throw ArgumentError("O titulo nao pode ser vazio");
+      print("O titulo nao pode ser vazio");
     }
     _titulo = t;
   }
 
   set artista(String a) {
     if (a.trim().isEmpty) {
-      throw ArgumentError("O artista nao pode ser vazio");
+      print("O artista nao pode ser vazio");
     }
     _artista = a;
   }
 
   set duracaoSegundos(int d) {
     if (d <= 0) {
-      throw ArgumentError("A duracao deve ser maior que 0");
+      print("A duracao deve ser maior que 0");
     }
     _duracaoSegundos = d;
   }
@@ -49,7 +49,7 @@ class Playlist {
 
   Playlist(this._nome, this._musica1, this._musica2, this._musica3) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
   }
 
@@ -57,7 +57,7 @@ class Playlist {
 
   set nome(String n) {
     if (n.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     _nome = n;
   }

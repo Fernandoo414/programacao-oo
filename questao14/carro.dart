@@ -6,10 +6,10 @@ class Motor {
 
   Motor(this._potencia, this._tipo) {
     if (_potencia <= 0) {
-      throw ArgumentError("A potencia eh igual ou menor que 0");
+      print("A potencia eh igual ou menor que 0");
     }
     if (_tipo.trim().isEmpty) {
-      throw ArgumentError("O tipo nao pode ser vazio");
+      print("O tipo nao pode ser vazio");
     }
   }
 
@@ -38,7 +38,7 @@ class Carro {
 
   Carro(this._modelo, this._motor) {
     if (_modelo.trim().isEmpty) {
-      throw ArgumentError("O modelo nao pode ser vazio");
+      print("O modelo nao pode ser vazio");
     }
   }
 

@@ -7,13 +7,13 @@ class Relogio {
 
   Relogio(this._hora, this._minuto, this._segundo) {
     if (_hora < 0 || _hora > 23) {
-      throw ArgumentError('A hora deve estar entre 0 a 23 horas');
+      print('A hora deve estar entre 0 a 23 horas');
     }
     if (_minuto < 0 || _minuto > 59) {
-      throw ArgumentError('Os minutos devem estar entre 0 a 59 minutos');
+      print('Os minutos devem estar entre 0 a 59 minutos');
     }
     if (_segundo < 0 || _segundo > 59) {
-      throw ArgumentError('Os segundos devem estar entre 0 a 59 segundos');
+      print('Os segundos devem estar entre 0 a 59 segundos');
     }
   }
 

@@ -4,10 +4,10 @@ class Comodo {
 
   Comodo(this._nome, this._tamanho) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome do comodo nao pode ser vazio");
+      print("O nome do comodo nao pode ser vazio");
     }
     if (_tamanho <= 0) {
-      throw ArgumentError("O tamanho deve ser maior que 0");
+      print("O tamanho deve ser maior que 0");
     }
   }
 
@@ -16,14 +16,14 @@ class Comodo {
 
   set nome(String n) {
     if (n.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     _nome = n;
   }
 
   set tamanho(double t) {
     if (t <= 0) {
-      throw ArgumentError("O tamanho deve ser maior que 0");
+      print("O tamanho deve ser maior que 0");
     }
     _tamanho = t;
   }
@@ -37,7 +37,7 @@ class Casa {
 
   Casa(this._proprietario, this._comodo1, this._comodo2, this._comodo3) {
     if (_proprietario.trim().isEmpty) {
-      throw ArgumentError("O proprietario nao pode ser vazio");
+      print("O proprietario nao pode ser vazio");
     }
   }
 
@@ -45,7 +45,7 @@ class Casa {
 
   set proprietario(String p) {
     if (p.trim().isEmpty) {
-      throw ArgumentError("O proprietario nao pode ser vazio");
+      print("O proprietario nao pode ser vazio");
     }
     _proprietario = p;
   }

@@ -5,7 +5,7 @@ class Contador {
 
   Contador(this._valor) {
     if (_valor < 0) {
-      throw ArgumentError("O valor nao pode ser negativo");
+      print("O valor nao pode ser negativo");
     }
   }
 

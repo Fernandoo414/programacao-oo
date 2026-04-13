@@ -6,10 +6,10 @@ class Produto {
 
   Produto(this._nome, this._preco) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome do produto nao pode ser vazio");
+      print("O nome do produto nao pode ser vazio");
     }
     if (_preco <= 0) {
-      throw ArgumentError("O preco deve ser maior que 0");
+      print("O preco deve ser maior que 0");
     }
   }
 
@@ -39,10 +39,10 @@ class Pedido {
 
   Pedido(this._numero, this._produto, this._quantidade) {
     if (_numero <= 0) {
-      throw ArgumentError("O numero do pedido deve ser maior que 0");
+      print("O numero do pedido deve ser maior que 0");
     }
     if (_quantidade <= 0) {
-      throw ArgumentError("A quantidade deve ser maior que 0");
+      print("A quantidade deve ser maior que 0");
     }
   }
 

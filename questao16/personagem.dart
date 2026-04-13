@@ -5,19 +5,19 @@ class Personagem {
 
   Personagem(this._nome, this._vida, this._ataque) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     if (_vida <= 0) {
-      throw ArgumentError("A vida tem que ser maior que 0");
+      print("A vida tem que ser maior que 0");
     }
     if (_ataque <= 0) {
-      throw ArgumentError("O ataque deve ser maior que 0");
+      print("O ataque deve ser maior que 0");
     }
   }
 
   set nome(String n) {
     if (n.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     _nome = n;
   }
@@ -26,7 +26,7 @@ class Personagem {
 
   set vida(int v) {
     if (v < 0) {
-      throw ArgumentError("A vida nao pode ser negativa");
+      print("A vida nao pode ser negativa");
     }
     _vida = v;
   }
@@ -35,7 +35,7 @@ class Personagem {
 
   set ataque(int a) {
     if (a <= 0) {
-      throw ArgumentError("O ataque deve ser maior que 0");
+      print("O ataque deve ser maior que 0");
     }
     _ataque = a;
   }

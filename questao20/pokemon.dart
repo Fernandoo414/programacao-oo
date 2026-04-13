@@ -7,16 +7,16 @@ class Pokemon {
 
   Pokemon(this._numero, this._nome, this._tipo, this._nivel, this._hp) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     if (_tipo.trim().isEmpty) {
-      throw ArgumentError("O tipo nao pode ser vazio");
+      print("O tipo nao pode ser vazio");
     }
     if (_nivel < 1 || _nivel > 100) {
-      throw ArgumentError("O nivel deve estar entre 1 e 100");
+      print("O nivel deve estar entre 1 e 100");
     }
     if (_hp <= 0) {
-      throw ArgumentError("O HP deve ser maior que 0");
+      print("O HP deve ser maior que 0");
     }
   }
 
@@ -30,28 +30,28 @@ class Pokemon {
 
   set nome(String n) {
     if (n.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     _nome = n;
   }
 
   set tipo(String t) {
     if (t.trim().isEmpty) {
-      throw ArgumentError("O tipo nao pode ser vazio");
+      print("O tipo nao pode ser vazio");
     }
     _tipo = t;
   }
 
   set nivel(int n) {
     if (n < 1 || n > 100) {
-      throw ArgumentError("O nivel deve estar entre 1 e 100");
+      print("O nivel deve estar entre 1 e 100");
     }
     _nivel = n;
   }
 
   set hp(int h) {
     if (h <= 0) {
-      throw ArgumentError("O HP deve ser maior que 0");
+      print("O HP deve ser maior que 0");
     }
     _hp = h;
   }
@@ -65,7 +65,7 @@ class Treinador {
 
   Treinador(this._nome, this._pokemon1, this._pokemon2, this._pokemon3) {
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome do treinador nao pode ser vazio");
+      print("O nome do treinador nao pode ser vazio");
     }
   }
 
@@ -73,7 +73,7 @@ class Treinador {
 
   set nome(String n) {
     if (n.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     _nome = n;
   }

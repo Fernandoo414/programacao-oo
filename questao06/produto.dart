@@ -8,16 +8,16 @@ class Produto {
 
   Produto(this._codigo, this._nome, this._precoUnitario, this._quantidade) {
     if (_codigo <= 0) {
-      throw ArgumentError("Esse codigo eh menor que 0");
+      print("Esse codigo eh menor que 0");
     }
     if (_nome.trim().isEmpty) {
-      throw ArgumentError("O nome nao pode ser vazio");
+      print("O nome nao pode ser vazio");
     }
     if (_precoUnitario <= 0) {
-      throw ArgumentError("O preco unitario tem que ser maior que 0");
+      print("O preco unitario tem que ser maior que 0");
     }
     if (_quantidade <= 0) {
-      throw ArgumentError("A quantidade de produtos tem que ser maior que 0");
+      print("A quantidade de produtos tem que ser maior que 0");
     }
   }
 
