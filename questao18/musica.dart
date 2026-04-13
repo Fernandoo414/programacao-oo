@@ -1,55 +1,99 @@
 class Musica {
-    String titulo;
-    String artista;
-    int duracaoSegundos;
+  String _titulo;
+  String _artista;
+  int _duracaoSegundos;
 
-    Musica(this.titulo, this.artista, this.duracaoSegundos){
-        if(titulo.trim().isEmpty){
-            throw ArgumentError("O titulo da musica nao pode ser vazio");
-        }
-        if(artista.trim().isEmpty){
-            throw ArgumentError("O nome do artista nao pode ser vazio");
-        }
-        if(duracaoSegundos <= 0){
-            throw ArgumentError("A duração em segundos tem que ser maior que 0");
-        }
+  Musica(this._titulo, this._artista, this._duracaoSegundos) {
+    if (_titulo.trim().isEmpty) {
+      throw ArgumentError("O titulo da musica nao pode ser vazio");
     }
+    if (_artista.trim().isEmpty) {
+      throw ArgumentError("O nome do artista nao pode ser vazio");
+    }
+    if (_duracaoSegundos <= 0) {
+      throw ArgumentError("A duracao em segundos tem que ser maior que 0");
+    }
+  }
+
+  String get titulo => _titulo;
+  String get artista => _artista;
+  int get duracaoSegundos => _duracaoSegundos;
+
+  set titulo(String t) {
+    if (t.trim().isEmpty) {
+      throw ArgumentError("O titulo nao pode ser vazio");
+    }
+    _titulo = t;
+  }
+
+  set artista(String a) {
+    if (a.trim().isEmpty) {
+      throw ArgumentError("O artista nao pode ser vazio");
+    }
+    _artista = a;
+  }
+
+  set duracaoSegundos(int d) {
+    if (d <= 0) {
+      throw ArgumentError("A duracao deve ser maior que 0");
+    }
+    _duracaoSegundos = d;
+  }
 }
 
-class playlist{
-    String nome;
-    Musica musica1;
-    Musica musica2;
-    Musica musica3;
+class Playlist {
+  String _nome;
+  Musica _musica1;
+  Musica _musica2;
+  Musica _musica3;
 
-    playlist(this.nome, this.musica1, this.musica2, this.musica3){
-        if(nome.trim().isEmpty){
-            throw ArgumentError("O nome não pode ser vazio");
-        }
+  Playlist(this._nome, this._musica1, this._musica2, this._musica3) {
+    if (_nome.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
     }
+  }
 
-    int calcularDuracaoTotal(){
-        int total = musica1.duracaoSegundos + musica2.duracaoSegundos + musica3.duracaoSegundos;
-        print(total);
-        return total;
+  String get nome => _nome;
+
+  set nome(String n) {
+    if (n.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
     }
+    _nome = n;
+  }
 
-    void tocarPlaylist(){
-        print("Tocando playlist...");
-        print("$musica1");
-        print("Na sequência");
-        print("$musica2");
-        print("$musica3");
+  Musica get musica1 => _musica1;
+  Musica get musica2 => _musica2;
+  Musica get musica3 => _musica3;
 
-    }
+  set musica1(Musica m) => _musica1 = m;
+  set musica2(Musica m) => _musica2 = m;
+  set musica3(Musica m) => _musica3 = m;
 
-    void exibirPlaylist(){
-        print("PlayList: $nome");
-        print("${musica1.titulo} - ${musica1.artista}");
-        print("Segundos de musica ${musica1.duracaoSegundos}\n");
-        print("${musica2.titulo} - ${musica2.artista}");
-        print("Segundos de musica ${musica2.duracaoSegundos}\n");
-        print("${musica2.titulo} - ${musica3.artista}");
-        print("Segundos de musica ${musica3.duracaoSegundos}\n");
-       }
+  int calcularDuracaoTotal() {
+    return _musica1.duracaoSegundos +
+        _musica2.duracaoSegundos +
+        _musica3.duracaoSegundos;
+  }
+
+  void tocarPlaylist() {
+    print("Tocando playlist...");
+    print(_musica1.titulo);
+    print("Na sequencia");
+    print(_musica2.titulo);
+    print(_musica3.titulo);
+  }
+
+  void exibirPlaylist() {
+    print("Playlist: $_nome");
+
+    print("${_musica1.titulo} - ${_musica1.artista}");
+    print("Segundos: ${_musica1.duracaoSegundos}\n");
+
+    print("${_musica2.titulo} - ${_musica2.artista}");
+    print("Segundos: ${_musica2.duracaoSegundos}\n");
+
+    print("${_musica3.titulo} - ${_musica3.artista}");
+    print("Segundos: ${_musica3.duracaoSegundos}");
+  }
 }

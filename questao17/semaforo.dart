@@ -2,13 +2,35 @@ class Semaforo {
   String _corAtual;
   int _tempoRestante;
 
-  // Construtor
   Semaforo(this._corAtual) : _tempoRestante = 0 {
-    // Inicializa o tempo correto baseado na cor de nascimento do objeto
+    _validarCor();
     _configurarTempo();
   }
 
-  // Método privado para configurar o tempo baseado na cor
+  String get corAtual => _corAtual;
+  int get tempoRestante => _tempoRestante;
+
+  set corAtual(String c) {
+    _corAtual = c;
+    _validarCor();
+    _configurarTempo();
+  }
+
+  set tempoRestante(int t) {
+    if (t < 0) {
+      throw ArgumentError("Tempo nao pode ser negativo");
+    }
+    _tempoRestante = t;
+  }
+
+  void _validarCor() {
+    if (_corAtual != "vermelho" &&
+        _corAtual != "verde" &&
+        _corAtual != "amarelo") {
+      throw ArgumentError("Cor invalida: use vermelho, verde ou amarelo");
+    }
+  }
+
   void _configurarTempo() {
     if (_corAtual == "vermelho") {
       _tempoRestante = 5;
@@ -16,22 +38,19 @@ class Semaforo {
       _tempoRestante = 4;
     } else if (_corAtual == "amarelo") {
       _tempoRestante = 2;
-    } else {
-      throw "Cor inválida! Use: vermelho, verde ou amarelo.";
     }
   }
 
-  // Lógica de transição: vermelho -> verde -> amarelo -> vermelho
   void trocarCor() {
     if (_corAtual == "vermelho") {
       _corAtual = "verde";
     } else if (_corAtual == "verde") {
       _corAtual = "amarelo";
-    } else if (_corAtual == "amarelo") {
+    } else {
       _corAtual = "vermelho";
     }
-    _configurarTempo(); // Reinicia o tempo para a nova cor
-    print("\n--- O SINAL MUDOU PARA $_corAtual ---");
+
+    _configurarTempo();
   }
 
   void reduzirTempo() {
@@ -39,18 +58,12 @@ class Semaforo {
       _tempoRestante--;
     }
 
-    // Se o tempo acabar, troca automaticamente
     if (_tempoRestante == 0) {
       trocarCor();
     }
   }
 
   void exibirEstado() {
-    String emoji = "";
-    if (_corAtual == "vermelho") emoji = "🔴";
-    if (_corAtual == "verde") emoji = "🟢";
-    if (_corAtual == "amarelo") emoji = "🟡";
-
-    print("Estado: $emoji $_corAtual | Tempo Restante: $_tempoRestante");
+    print("Estado: $_corAtual | Tempo Restante: $_tempoRestante");
   }
 }

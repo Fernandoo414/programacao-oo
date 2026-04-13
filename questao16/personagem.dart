@@ -1,43 +1,66 @@
 class Personagem {
-      String nome;
-      int vida;
-      int ataque;
+  String _nome;
+  int _vida;
+  int _ataque;
 
-      Personagem(this.nome, this.vida, this.ataque){
-            if(nome.trim().isEmpty){
-                  throw ArgumentError("O nome nao pode ser vazio");
-            }
-            if(vida <= 0){
-                  throw ArgumentError("a vida tem que ser maior que 0");
-            }
-            if(ataque <= 0){
-                  throw ArgumentError("O ataque deve ser maior que 0");
-            }
-      }
+  Personagem(this._nome, this._vida, this._ataque) {
+    if (_nome.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
+    }
+    if (_vida <= 0) {
+      throw ArgumentError("A vida tem que ser maior que 0");
+    }
+    if (_ataque <= 0) {
+      throw ArgumentError("O ataque deve ser maior que 0");
+    }
+  }
 
-      bool estaVivo(){
-            if(vida <= 0){
-                  return false;
-            }else{
-                  return true;
-            }
-      }
+  set nome(String n) {
+    if (n.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
+    }
+    _nome = n;
+  }
 
-      void atacar(Personagem inimigo){
-            if(!estaVivo()){
-                  return;
-            }
+  String get nome => _nome;
 
-            inimigo.vida -= ataque;
+  set vida(int v) {
+    if (v < 0) {
+      throw ArgumentError("A vida nao pode ser negativa");
+    }
+    _vida = v;
+  }
 
-            if(inimigo.vida < 0){
-                  inimigo.vida = 0; 
-            }
-      }
+  int get vida => _vida;
 
-      void exibirStatus(){
-            print("Nome do personagem: $nome");
-            print("Vida: $vida");
-            print("Ataque: $ataque");
-      }
+  set ataque(int a) {
+    if (a <= 0) {
+      throw ArgumentError("O ataque deve ser maior que 0");
+    }
+    _ataque = a;
+  }
+
+  int get ataque => _ataque;
+
+  bool estaVivo() {
+    return _vida > 0;
+  }
+
+  void atacar(Personagem inimigo) {
+    if (!estaVivo()) {
+      return;
+    }
+
+    inimigo._vida -= _ataque;
+
+    if (inimigo._vida < 0) {
+      inimigo._vida = 0;
+    }
+  }
+
+  void exibirStatus() {
+    print("Nome do personagem: $_nome");
+    print("Vida: $_vida");
+    print("Ataque: $_ataque");
+  }
 }

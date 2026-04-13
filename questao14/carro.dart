@@ -1,35 +1,69 @@
-class Motor{    
-    int potencia;
-    String tipo;
+import 'dart:io';
 
+class Motor {
+  int _potencia;
+  String _tipo;
 
-    Motor(this.potencia, this.tipo){
-        if(potencia <= 0){
-            throw ArgumentError("A potencia eh igaul ou mento que 0");
-        }
-        if(tipo.trim().isEmpty){
-            throw ArgumentError("O tipo nao pode ser vazioo");
-        }
+  Motor(this._potencia, this._tipo) {
+    if (_potencia <= 0) {
+      throw ArgumentError("A potencia eh igual ou menor que 0");
     }
+    if (_tipo.trim().isEmpty) {
+      throw ArgumentError("O tipo nao pode ser vazio");
+    }
+  }
+
+  set potencia(int p) {
+    if (p <= 0) {
+      exit(1);
+    }
+    _potencia = p;
+  }
+
+  int get potencia => _potencia;
+
+  set tipo(String t) {
+    if (t.trim().isEmpty) {
+      exit(1);
+    }
+    _tipo = t;
+  }
+
+  String get tipo => _tipo;
 }
 
 class Carro {
-    String modelo;
-    Motor motor;
+  String _modelo;
+  Motor _motor;
 
-    Carro(this.modelo, this.motor){
-        if (modelo.trim().isEmpty) {
-            throw ArgumentError("o modelo nao pode ser vaizio");
-        }
+  Carro(this._modelo, this._motor) {
+    if (_modelo.trim().isEmpty) {
+      throw ArgumentError("O modelo nao pode ser vazio");
     }
+  }
 
-    void exibirMotor(){
-        print("Potencia: ${motor.potencia}");
-        print("Tipo: ${motor.tipo}");
+  set modelo(String m) {
+    if (m.trim().isEmpty) {
+      exit(1);
     }
+    _modelo = m;
+  }
 
-    void exibirCarro(){
-        print("O modelo eh: $modelo");
-        exibirMotor();
-    }
+  String get modelo => _modelo;
+
+  set motor(Motor m) {
+    _motor = m;
+  }
+
+  Motor get motor => _motor;
+
+  void exibirMotor() {
+    print("Potencia: ${_motor.potencia}");
+    print("Tipo: ${_motor.tipo}");
+  }
+
+  void exibirCarro() {
+    print("O modelo eh: $_modelo");
+    exibirMotor();
+  }
 }

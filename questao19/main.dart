@@ -1,5 +1,4 @@
 import 'casa.dart';
-import 'comodo.dart';
 
 void main() {
   print("=== SISTEMA IMOBILIÁRIO TUIUTI ===");

@@ -1,4 +1,3 @@
-import 'treinador.dart';
 import 'pokemon.dart';
 
 void main() {

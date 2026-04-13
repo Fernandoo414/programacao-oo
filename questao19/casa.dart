@@ -1,4 +1,33 @@
-import 'comodo.dart';
+class Comodo {
+  String _nome;
+  double _tamanho;
+
+  Comodo(this._nome, this._tamanho) {
+    if (_nome.trim().isEmpty) {
+      throw ArgumentError("O nome do comodo nao pode ser vazio");
+    }
+    if (_tamanho <= 0) {
+      throw ArgumentError("O tamanho deve ser maior que 0");
+    }
+  }
+
+  String get nome => _nome;
+  double get tamanho => _tamanho;
+
+  set nome(String n) {
+    if (n.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
+    }
+    _nome = n;
+  }
+
+  set tamanho(double t) {
+    if (t <= 0) {
+      throw ArgumentError("O tamanho deve ser maior que 0");
+    }
+    _tamanho = t;
+  }
+}
 
 class Casa {
   String _proprietario;
@@ -7,24 +36,42 @@ class Casa {
   Comodo _comodo3;
 
   Casa(this._proprietario, this._comodo1, this._comodo2, this._comodo3) {
-    if (_proprietario.isEmpty) throw "O nome do proprietário não pode ser vazio.";
+    if (_proprietario.trim().isEmpty) {
+      throw ArgumentError("O proprietario nao pode ser vazio");
+    }
   }
 
-  // Método para somar as áreas
+  String get proprietario => _proprietario;
+
+  set proprietario(String p) {
+    if (p.trim().isEmpty) {
+      throw ArgumentError("O proprietario nao pode ser vazio");
+    }
+    _proprietario = p;
+  }
+
+  Comodo get comodo1 => _comodo1;
+  Comodo get comodo2 => _comodo2;
+  Comodo get comodo3 => _comodo3;
+
+  set comodo1(Comodo c) => _comodo1 = c;
+  set comodo2(Comodo c) => _comodo2 = c;
+  set comodo3(Comodo c) => _comodo3 = c;
+
   double calcularAreaTotal() {
     return _comodo1.tamanho + _comodo2.tamanho + _comodo3.tamanho;
   }
 
   void exibirCasa() {
     print("========================================");
-    print("PROPRIETÁRIO: $_proprietario");
+    print("PROPRIETARIO: $_proprietario");
     print("----------------------------------------");
-    print("CÔMODOS DA RESIDÊNCIA:");
+    print("COMODOS:");
     print("1. ${_comodo1.nome}: ${_comodo1.tamanho}m²");
     print("2. ${_comodo2.nome}: ${_comodo2.tamanho}m²");
     print("3. ${_comodo3.nome}: ${_comodo3.tamanho}m²");
     print("----------------------------------------");
-    print("ÁREA TOTAL DA CASA: ${calcularAreaTotal().toStringAsFixed(2)}m²");
+    print("AREA TOTAL: ${calcularAreaTotal().toStringAsFixed(2)}m²");
     print("========================================");
   }
 }
