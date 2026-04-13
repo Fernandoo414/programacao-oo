@@ -1,55 +1,67 @@
 import 'dart:io';
 
-class Quadrado{
-    double lado;
-    String caractere;
+class Quadrado {
+  double _lado;
+  String _caractere;
 
-
-    Quadrado(this.lado, this.caractere){
-        if(lado <= 0){
-            throw ArgumentError("O lado do quadrado deve ser maior que 0");
-        }
-        if(caractere.length > 1 || caractere.trim().isEmpty){
-            throw ArgumentError("Nao pode ter mais de 1 caracter e nao pode ser vazia");
-        }
+  Quadrado(this._lado, this._caractere) {
+    if (_lado <= 0) {
+      throw ArgumentError("O lado do quadrado deve ser maior que 0");
     }
-
-    double calcularArea(){
-        double area = lado * lado;
-        return area;
+    if (_caractere.length > 1 || _caractere.trim().isEmpty) {
+      throw ArgumentError("Nao pode ter mais de 1 caracter e nao pode ser vazia");
     }
+  }
 
-
-    double calcularPerimetro(){
-        double perimetro = lado * 4;
-        return perimetro;
+  set lado(double l) {
+    if (l <= 0) {
+      exit(1);
     }
+    _lado = l;
+  }
 
+  double get lado => _lado;
 
-    bool ehIgual(Quadrado quadrado2){
-        if(lado == quadrado2.lado && caractere == quadrado2.caractere){
-            return true;
-        }else{
-            return false;
-        }
+  set caractere(String c) {
+    if (c.length > 1 || c.trim().isEmpty) {
+      exit(1);
     }
+    _caractere = c;
+  }
 
+  String get caractere => _caractere;
 
-    void desenhar(){
+  double calcularArea() {
+    double area = _lado * _lado;
+    return area;
+  }
 
-        for(int i = 0; i < lado.toInt(); i++){
-            for(int j = 0; j < lado.toInt(); j++){
-                stdout.write(caractere);
-            }
-            print(" Linha $i");
-        }
-        print("");
+  double calcularPerimetro() {
+    double perimetro = _lado * 4;
+    return perimetro;
+  }
+
+  bool ehIgual(Quadrado quadrado2) {
+    if (_lado == quadrado2._lado && _caractere == quadrado2._caractere) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-
-    void exibirResumo(){
-        print('Lado: $lado');
-        print('Area: ${calcularArea()}');
-        print('Perimetro ${calcularPerimetro()}');
+  void desenhar() {
+    for (int i = 0; i < _lado.toInt(); i++) {
+      for (int j = 0; j < _lado.toInt(); j++) {
+        stdout.write(_caractere);
+      }
+      print(" Linha $i");
     }
+    print("");
+  }
+
+  void exibirResumo() {
+    print('Lado: $_lado');
+    print('Area: ${calcularArea()}');
+    print('Perimetro ${calcularPerimetro()}');
+  }
 }

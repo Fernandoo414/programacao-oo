@@ -1,61 +1,100 @@
-class Produto{
-    int codigo;
-    String nome;
-    double precoUnitario;
-    int quantidade;
+import 'dart:io';
 
-    Produto(this.codigo, this.nome, this.precoUnitario, this.quantidade){
-        if(codigo <= 0){
-            throw ArgumentError("Esse codigo eh menor que 0");
-        }
-        if(nome.trim().isEmpty){
-            throw ArgumentError("O nome nao pode ser vazio");
-        }
-        if(precoUnitario <= 0){
-            throw ArgumentError("O preco unitario tem que ser maior que 0");
-        }
-        if(quantidade <= 0){
-            throw ArgumentError("A quantidade de produtos tem que ser maior que 0");
-        }
+class Produto {
+  int _codigo;
+  String _nome;
+  double _precoUnitario;
+  int _quantidade;
+
+  Produto(this._codigo, this._nome, this._precoUnitario, this._quantidade) {
+    if (_codigo <= 0) {
+      throw ArgumentError("Esse codigo eh menor que 0");
     }
-
-    double calcularDesconto(){  // retorna o valor do desconto aplicado
-        double porcentagem = 0;
-        double total = 0;
-        double valor_do_desconto = 0.0;
-            if(quantidade >= 20){
-                porcentagem = 15 / 100;
-                total = (precoUnitario * quantidade);
-                valor_do_desconto = porcentagem * total;
-
-            } else if (quantidade >= 10 && quantidade < 20){
-                porcentagem = 10 / 100;
-                total = (precoUnitario * quantidade);
-                valor_do_desconto = porcentagem * total;
-
-            } else if (quantidade >= 5 && quantidade < 10){
-                porcentagem = 5 / 100;
-                total = (precoUnitario * quantidade);
-                valor_do_desconto = porcentagem * total;
-
-            } else if (quantidade <= 4){
-                valor_do_desconto = 0;
-            }
-            return valor_do_desconto;
+    if (_nome.trim().isEmpty) {
+      throw ArgumentError("O nome nao pode ser vazio");
     }
-
-    double calcularTotal(){  // retorna o valor total da compra com desconto 
-        double total1 = 0;
-        total1 = (precoUnitario * quantidade) - calcularDesconto();
-        return total1;
+    if (_precoUnitario <= 0) {
+      throw ArgumentError("O preco unitario tem que ser maior que 0");
     }
-
-    void exibirResumo(){   // mostra código, nome, preço unitário, quantidade, desconto e total 
-        print('O nome do produto eh: $nome');
-        print('O codigo do produto eh: $codigo');
-        print('O preco do produto eh: $precoUnitario');
-        print('A quantidade do produto eh: $quantidade');
-        print('O valor Total do desconto eh: ${calcularDesconto()}');
-        print('O Total eh: ${calcularTotal()}');
+    if (_quantidade <= 0) {
+      throw ArgumentError("A quantidade de produtos tem que ser maior que 0");
     }
+  }
+
+  set codigo(int c) {
+    if (c <= 0) {
+      exit(1);
+    }
+    _codigo = c;
+  }
+
+  int get codigo => _codigo;
+
+  set nome(String n) {
+    if (n.trim().isEmpty) {
+      exit(1);
+    }
+    _nome = n;
+  }
+
+  String get nome => _nome;
+
+  set precoUnitario(double p) {
+    if (p <= 0) {
+      exit(1);
+    }
+    _precoUnitario = p;
+  }
+
+  double get precoUnitario => _precoUnitario;
+
+  set quantidade(int q) {
+    if (q <= 0) {
+      exit(1);
+    }
+    _quantidade = q;
+  }
+
+  int get quantidade => _quantidade;
+
+  double calcularDesconto() {
+    double porcentagem = 0;
+    double total = 0;
+    double valor_do_desconto = 0.0;
+
+    if (_quantidade >= 20) {
+      porcentagem = 15 / 100;
+      total = (_precoUnitario * _quantidade);
+      valor_do_desconto = porcentagem * total;
+
+    } else if (_quantidade >= 10 && _quantidade < 20) {
+      porcentagem = 10 / 100;
+      total = (_precoUnitario * _quantidade);
+      valor_do_desconto = porcentagem * total;
+
+    } else if (_quantidade >= 5 && _quantidade < 10) {
+      porcentagem = 5 / 100;
+      total = (_precoUnitario * _quantidade);
+      valor_do_desconto = porcentagem * total;
+
+    } else if (_quantidade <= 4) {
+      valor_do_desconto = 0;
+    }
+    return valor_do_desconto;
+  }
+
+  double calcularTotal() {
+    double total1 = 0;
+    total1 = (_precoUnitario * _quantidade) - calcularDesconto();
+    return total1;
+  }
+
+  void exibirResumo() {
+    print('O nome do produto eh: $_nome');
+    print('O codigo do produto eh: $_codigo');
+    print('O preco do produto eh: $_precoUnitario');
+    print('A quantidade do produto eh: $_quantidade');
+    print('O valor Total do desconto eh: ${calcularDesconto()}');
+    print('O Total eh: ${calcularTotal()}');
+  }
 }

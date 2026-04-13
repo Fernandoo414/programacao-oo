@@ -1,21 +1,32 @@
+import 'dart:io';
+
 class Contador {
-  // O prefixo "_" torna a variável privada dentro deste arquivo
-  int _valor; 
+  int _valor;
 
-  // Construtor
-  Contador(int valorInicial) : _valor = valorInicial >= 0 ? valorInicial : 0;
+  Contador(this._valor) {
+    if (_valor < 0) {
+      throw ArgumentError("O valor nao pode ser negativo");
+    }
+  }
 
-  // Método para aumentar
+  set valor(int v) {
+    if (v < 0) {
+      exit(1);
+    }
+    _valor = v;
+  }
+
+  int get valor => _valor;
+
   void incrementar() {
     _valor++;
   }
 
-  // Método para diminuir com a restrição de não ser negativo
   void decrementar() {
     if (_valor > 0) {
       _valor--;
     } else {
-      print("Aviso: O contador já está em 0.");
+      print("Aviso: O contador ja esta em 0.");
     }
   }
 
@@ -23,7 +34,6 @@ class Contador {
     _valor = 0;
   }
 
-  // Como o valor é privado, precisamos deste método para o Main conseguir ver o número
   void exibirValor() {
     print("Valor atual do contador: $_valor");
   }

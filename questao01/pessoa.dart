@@ -1,21 +1,37 @@
 class Pessoa {
-  String nome;
-  int idade;
+  String _nome;
+  int _idade;
 
-  // Construtor com validação
-  Pessoa(this.nome, this.idade) {
-    if (nome.trim().isEmpty) {
+  Pessoa(this._nome, this._idade) {
+    if (_nome.trim().isEmpty) {
       throw ArgumentError('O nome não pode ser vazio.');
     }
-    if (idade < 0) {
+    if (_idade < 0) {
       throw ArgumentError('A idade deve ser maior ou igual a 0.');
     }
   }
 
-  // Método para exibir dados
+  String get nome => _nome;
+
+  set nome(String novoNome) {
+    if (novoNome.trim().isEmpty) {
+      throw ArgumentError('O nome não pode ser vazio.');
+    }
+    _nome = novoNome;
+  }
+
+  int get idade => _idade;
+
+  set idade(int novaIdade) {
+    if (novaIdade < 0) {
+      throw ArgumentError('A idade deve ser maior ou igual a 0.');
+    }
+    _idade = novaIdade;
+  }
+
   void exibirDados() {
-    print('Nome: $nome');
-    print('Idade: $idade');
+    print('Nome: $_nome');
+    print('Idade: $_idade');
     print('----------------------');
   }
 }
