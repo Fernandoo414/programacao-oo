@@ -2,7 +2,7 @@ import 'carro.dart';
 import 'oficina.dart';
 
 void main() {
-  var carro = Carro("Civic", 50000);
+  var carro = Carro("Lancer", 70000);
   var oficina = Oficina();
 
   print("ANTES da revisão:\n");
