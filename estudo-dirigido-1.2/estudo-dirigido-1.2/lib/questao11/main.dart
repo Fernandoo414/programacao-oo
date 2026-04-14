@@ -3,7 +3,7 @@ import 'endereco.dart';
 
 void main() {
   var endereco = Endereco("Rua Tuiuti", 100, "Curitiba");
-  var cliente1 = Cliente("Lucas", endereco);
+  var cliente1 = Cliente("Matheus", endereco);
 
   // criando cópia
   var cliente2 = Cliente.copia(cliente1);
