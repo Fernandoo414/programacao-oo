@@ -1,11 +1,11 @@
 class Lampada {
-  late bool _ligada;
-  late int _intensidade;
+   bool _ligada;
+   int _intensidade;
 
   // construtor sem parâmetros
   Lampada(){
     _ligada = false;
-    _intensidade = 70;
+    _intensidade = ;
   }
 
   void ligar() {
