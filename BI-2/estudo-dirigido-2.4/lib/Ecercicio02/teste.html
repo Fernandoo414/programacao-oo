@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OOP com Dart — Curso Completo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--bg2:#fff;--bg3:#f1f5f9;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--border:#e2e8f0;--dart:#0175C2;--dart-light:#eff7ff;--green:#1D9E75;--green-light:#e1f5ee;--amber:#EF9F27;--amber-light:#faeeda;--red:#E24B4A;--red-light:#fcebeb}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex}
+
+.sidebar{width:272px;min-width:272px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.sb-head{padding:16px 14px 12px;border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.logo-box{width:36px;height:36px;background:var(--dart);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.logo-name{font-size:14px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.prog-bar{background:var(--bg3);border-radius:20px;height:5px;overflow:hidden;margin-bottom:4px}
+.prog-fill{height:100%;background:var(--dart);border-radius:20px;transition:width .4s ease}
+.prog-txt{font-size:11px;color:var(--text3)}
+
+.nav{flex:1;overflow-y:auto;padding:6px 0}
+.nav::-webkit-scrollbar{width:4px}.nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.nav-sec{padding:10px 14px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;font-size:12.5px;color:var(--text2);border-left:2px solid transparent;transition:all .12s}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--dart-light);color:var(--dart);border-left-color:var(--dart);font-weight:600}
+.nav-item.done{color:var(--green)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s}
+.nav-item.active .nav-dot{background:var(--dart)}
+.nav-item.done .nav-dot{background:var(--green)}
+.nav-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-badge{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--dart-light);color:var(--dart);white-space:nowrap;flex-shrink:0;font-weight:600}
+
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{padding:13px 24px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.breadcrumb{font-size:13px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.breadcrumb b{color:var(--text)}
+.btns{display:flex;gap:7px;flex-shrink:0}
+.btn{padding:6px 14px;border-radius:8px;font-size:12.5px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg2);color:var(--text);transition:all .12s;font-family:inherit;white-space:nowrap}
+.btn:hover{background:var(--bg3)}
+.btn-p{background:var(--dart);color:#fff;border-color:var(--dart)}.btn-p:hover{background:#0160a0}
+
+.content{flex:1;overflow-y:auto;padding:24px}
+.content::-webkit-scrollbar{width:5px}.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+.l-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.tag-a{background:var(--dart-light);color:var(--dart)}
+.tag-p{background:var(--amber-light);color:#633806}
+.l-title{font-size:22px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.l-meta{font-size:12.5px;color:var(--text2);display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.l-meta i{vertical-align:-2px;margin-right:3px}
+
+.sec{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.sec-title{font-size:14px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.sec-title i{color:var(--dart);font-size:17px}
+.prose{font-size:13.5px;line-height:1.75;color:var(--text2)}
+.prose p{margin-bottom:9px}.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--text);font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--dart)}
+
+.code-block{background:#16191f;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.72;overflow-x:auto;position:relative;white-space:pre}
+.c-lang{position:absolute;top:9px;right:11px;font-size:10px;font-weight:600;color:#4a5568;text-transform:uppercase;letter-spacing:.05em}
+.kw{color:#c792ea}.cls{color:#82aaff}.fn{color:#82aaff}.str{color:#c3e88d}.cm{color:#4a5568;font-style:italic}.num{color:#f78c6c}.typ{color:#ffcb6b}.op{color:#89ddff}.var{color:#eeffff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:10px}
+.card{padding:14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
+.card-icon{font-size:20px;margin-bottom:7px;color:var(--dart)}
+.card-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.card-desc{font-size:11.5px;color:var(--text2);line-height:1.5}
+
+.analogy{background:#fffbeb;border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:12px 14px;margin:10px 0;font-size:13px;color:#633806;line-height:1.65}
+.analogy strong{color:#412402}
+.tip{background:var(--dart-light);border-left:3px solid var(--dart);border-radius:0 8px 8px 0;padding:12px 14px;margin:10px 0;font-size:13px;color:#042c53;line-height:1.65}
+.tip strong{color:var(--dart)}
+.warn{background:var(--amber-light);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:12px 14px;margin:10px 0;font-size:13px;color:#633806;line-height:1.65}
+
+.cl{list-style:none;margin:7px 0}
+.cl li{display:flex;align-items:flex-start;gap:7px;padding:4px 0;font-size:13.5px;color:var(--text2)}
+.cl li i{color:var(--green);font-size:15px;margin-top:2px;flex-shrink:0}
+
+.quiz-q{font-size:14px;font-weight:500;margin-bottom:10px;color:var(--text)}
+.q-opt{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;margin-bottom:7px;transition:all .12s;font-size:13.5px;color:var(--text2);background:var(--bg3)}
+.q-opt:hover{border-color:var(--dart);color:var(--text)}
+.q-opt.ok{border-color:var(--green);background:var(--green-light);color:#085041;pointer-events:none}
+.q-opt.no{border-color:var(--red);background:var(--red-light);color:#501313;pointer-events:none}
+.q-opt.dis{pointer-events:none;opacity:.6}
+.q-letter{width:24px;height:24px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.q-fb{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:500;margin-top:6px;display:none}
+.q-fb.show{display:block}
+.q-fb.ok{background:var(--green-light);color:#085041}
+.q-fb.no{background:var(--red-light);color:#501313}
+
+.diag{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0;text-align:center}
+.diag-title{font-weight:600;margin-bottom:10px;color:var(--text);font-size:13px}
+.diag-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.d-box{padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid}
+.d-blue{background:var(--dart-light);color:var(--dart);border-color:#B5D4F4}
+.d-green{background:var(--green-light);color:#085041;border-color:#9FE1CB}
+.d-amber{background:var(--amber-light);color:#633806;border-color:#FAC775}
+.d-arrow{color:var(--text3);font-size:16px}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sb-head">
+    <div class="logo">
+      <div class="logo-box">Dt</div>
+      <div><div class="logo-name">OOP com Dart</div><div class="logo-sub">Plano oficial do professor</div></div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="pb" style="width:0%"></div></div>
+    <div class="prog-txt" id="pl">0 de 16 aulas concluídas</div>
+  </div>
+  <div class="nav" id="navList"></div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb">OOP · <b id="topT">Carregando...</b></div>
+    <div class="btns">
+      <button class="btn" onclick="prev()"><i class="ti ti-arrow-left"></i> Anterior</button>
+      <button class="btn btn-p" onclick="next()">Próxima <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+  <div class="content" id="ct"></div>
+</div>
+
+<script>
+const L=[
+{num:'01',title:'Paradigmas de Programação',date:'25/02/2026',
+quiz:{q:'Qual a principal vantagem da OOP?',opts:['Executa mais rápido','Organiza código em objetos que espelham o mundo real, facilitando manutenção','Usa menos memória','É exclusiva do Dart'],c:1,ok:'Exato! OOP organiza código em objetos com dados e comportamentos — sistemas maiores ficam mais fáceis de manter.',no:'OOP não é sobre velocidade — é sobre organização. Objetos espelham entidades do mundo real.'},
+html:`<div class="l-tag tag-a">Aula 01 · 25/02/2026</div>
+<h1 class="l-title">Paradigmas de Programação</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~30 min</span><span><i class="ti ti-book"></i>Teoria + Exemplos</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-bulb"></i>O que é um paradigma?</div>
+<div class="prose"><p>Um <strong>paradigma</strong> é uma forma de pensar e estruturar o código. É como uma filosofia de como resolver problemas.</p></div>
+<div class="analogy"><strong>Analogia:</strong> Cozinhar pode ser seguir uma receita passo-a-passo (estruturado) ou montar pratos modulares onde cada componente tem sua função (OOP).</div>
+<div class="grid">
+<div class="card"><div class="card-icon"><i class="ti ti-list-numbers"></i></div><div class="card-name">Estruturado</div><div class="card-desc">Código em sequência de funções. Dados e lógica separados. Ex: C, Pascal.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-box"></i></div><div class="card-name">Orientado a Objetos</div><div class="card-desc">Dados e lógica juntos em objetos. Espelha o mundo real. Ex: Dart, Java, Python.</div></div>
+</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Estruturado vs OOP — comparação</div>
+<div class="code-block"><span class="c-lang">Pseudocódigo</span><span class="cm">// ESTRUTURADO</span>
+<span class="var">nomeCarro</span> = <span class="str">"Fusca"</span>
+<span class="var">velocidade</span> = <span class="num">0</span>
+<span class="kw">função</span> <span class="fn">acelerar</span>(<span class="var">v</span>, <span class="var">inc</span>): <span class="kw">retorne</span> <span class="var">v</span> + <span class="var">inc</span>
+
+<span class="cm">// OOP — tudo encapsulado</span>
+<span class="kw">classe</span> <span class="cls">Carro</span> {
+    <span class="var">nome</span>; <span class="var">velocidade</span> = <span class="num">0</span>
+    <span class="fn">acelerar</span>(<span class="var">inc</span>): <span class="var">velocidade</span> += <span class="var">inc</span>
+}
+<span class="var">meuCarro</span> = <span class="kw">novo</span> <span class="cls">Carro</span>(); <span class="var">meuCarro</span>.<span class="fn">acelerar</span>(<span class="num">30</span>)</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-star"></i>Os 4 pilares da OOP</div>
+<div class="grid">
+<div class="card"><div class="card-icon"><i class="ti ti-lock"></i></div><div class="card-name">Encapsulamento</div><div class="card-desc">Proteger dados internos, expondo só o necessário.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-git-branch"></i></div><div class="card-name">Herança</div><div class="card-desc">Classe filha reutiliza código da classe pai.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-switch"></i></div><div class="card-name">Polimorfismo</div><div class="card-desc">Mesmo método, comportamentos diferentes.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-eye-off"></i></div><div class="card-name">Abstração</div><div class="card-desc">Modelar só o que importa para o problema.</div></div>
+</div></div>`},
+
+{num:'02',title:'Introdução ao Dart',date:'04/03/2026',
+quiz:{q:'Qual palavra-chave deixa o Dart inferir o tipo automaticamente?',opts:['auto','dynamic','var','let'],c:2,ok:'Correto! "var" faz o Dart inferir. Ex: var nome = "João" → Dart sabe que é String.',no:'"var" faz inferência de tipo em Dart. "dynamic" existe mas desativa checagem — evite.'},
+html:`<div class="l-tag tag-a">Aula 02 · 04/03/2026</div>
+<h1 class="l-title">Introdução ao Dart</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span><span><i class="ti ti-code"></i>Hands-on</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-variable"></i>Tipos de dados e variáveis</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="typ">int</span>    <span class="var">idade</span>  = <span class="num">20</span>;
+  <span class="typ">double</span> <span class="var">altura</span> = <span class="num">1.75</span>;
+  <span class="typ">String</span> <span class="var">nome</span>   = <span class="str">"Leonardo"</span>;
+  <span class="typ">bool</span>   <span class="var">ativo</span>  = <span class="kw">true</span>;
+
+  <span class="kw">var</span>   <span class="var">cidade</span> = <span class="str">"Curitiba"</span>; <span class="cm">// String inferida</span>
+  <span class="kw">final</span> <span class="var">pi</span>     = <span class="num">3.14159</span>;   <span class="cm">// imutável em runtime</span>
+  <span class="kw">const</span> <span class="var">MAX</span>    = <span class="num">100</span>;       <span class="cm">// constante em compilação</span>
+
+  print(<span class="str">"Olá, $nome! Você tem $idade anos."</span>);
+  print(<span class="str">"Área: ${pi * 2 * 2}"</span>);
+}</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-arrows-split"></i>Controle de fluxo</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="typ">int</span> <span class="var">nota</span> = <span class="num">7</span>;
+
+  <span class="kw">if</span> (<span class="var">nota</span> >= <span class="num">7</span>)      print(<span class="str">"Aprovado"</span>);
+  <span class="kw">else if</span> (<span class="var">nota</span> >= <span class="num">5</span>) print(<span class="str">"Recuperação"</span>);
+  <span class="kw">else</span>                print(<span class="str">"Reprovado"</span>);
+
+  <span class="kw">for</span> (<span class="typ">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> <= <span class="num">5</span>; <span class="var">i</span>++) print(<span class="var">i</span>);
+
+  <span class="kw">var</span> <span class="var">nomes</span> = [<span class="str">"Ana"</span>, <span class="str">"Bruno"</span>, <span class="str">"Carla"</span>];
+  <span class="kw">for</span> (<span class="kw">var</span> <span class="var">n</span> <span class="kw">in</span> <span class="var">nomes</span>) print(<span class="var">n</span>); <span class="cm">// for-in</span>
+}</div>
+<div class="tip"><strong>Atenção:</strong> Toda instrução em Dart termina com <code>;</code> — esquecer é o erro mais comum!</div>
+</div>`},
+
+{num:'03',title:'Classes e Objetos – Parte 1',date:'11/03/2026',
+quiz:{q:'O que é uma instância de classe?',opts:['O mesmo que uma classe','Um objeto concreto criado na memória a partir da classe','Um método especial','Um arquivo .dart'],c:1,ok:'Correto! Instanciar = criar um objeto concreto. A classe é o molde; a instância é o objeto.',no:'Instância é o objeto criado a partir da classe. Classe é o molde; objeto é o produto.'},
+html:`<div class="l-tag tag-a">Aula 03 · 11/03/2026</div>
+<h1 class="l-title">Classes e Objetos – Parte 1</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~40 min</span><span><i class="ti ti-box"></i>OOP Core</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-template"></i>Classe = Molde · Objeto = Produto</div>
+<div class="analogy"><strong>Analogia da forma de bolo:</strong> A classe é a forma (molde). O objeto é o bolo assado. A mesma forma gera vários bolos independentes.</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Primeira classe em Dart</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Pessoa</span> {
+  <span class="cm">// Atributos — características</span>
+  <span class="typ">String</span> <span class="var">nome</span>  = <span class="str">""</span>;
+  <span class="typ">int</span>    <span class="var">idade</span> = <span class="num">0</span>;
+  <span class="typ">String</span> <span class="var">curso</span> = <span class="str">""</span>;
+
+  <span class="cm">// Métodos — comportamentos</span>
+  <span class="kw">void</span> <span class="fn">apresentar</span>() {
+    print(<span class="str">"Sou $nome, $idade anos, faço $curso."</span>);
+  }
+  <span class="kw">void</span> <span class="fn">estudar</span>(<span class="typ">String</span> <span class="var">m</span>) => print(<span class="str">"$nome estudando $m."</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="cls">Pessoa</span> <span class="var">p1</span> = <span class="cls">Pessoa</span>(); <span class="cm">// instância</span>
+  <span class="var">p1</span>.nome  = <span class="str">"Leonardo"</span>;
+  <span class="var">p1</span>.idade = <span class="num">20</span>;
+  <span class="var">p1</span>.curso = <span class="str">"Análise de Sistemas"</span>;
+  <span class="var">p1</span>.<span class="fn">apresentar</span>();
+  <span class="var">p1</span>.<span class="fn">estudar</span>(<span class="str">"Dart"</span>);
+}</div>
+</div>`},
+
+{num:'04',title:'Classes e Objetos – Parte 2',date:'18/03/2026',
+quiz:{q:'O que faz "this" dentro de uma classe?',opts:['Cria um novo objeto','Referencia o objeto atual','Chama o construtor pai','Define atributo estático'],c:1,ok:'Perfeito! "this" aponta para o próprio objeto. Muito usado em construtores para evitar ambiguidade.',no:'"this" referencia o objeto atual. Usado em construtores e métodos para distinguir atributo de parâmetro.'},
+html:`<div class="l-tag tag-a">Aula 04 · 18/03/2026</div>
+<h1 class="l-title">Classes e Objetos – Parte 2</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Classe com lógica e interação</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Aluno</span> {
+  <span class="typ">String</span> <span class="var">nome</span>;
+  <span class="typ">double</span> <span class="var">nota1</span>, <span class="var">nota2</span>;
+
+  <span class="typ">double</span> <span class="fn">media</span>() => (<span class="var">nota1</span> + <span class="var">nota2</span>) / <span class="num">2</span>;
+  <span class="typ">bool</span>   <span class="fn">aprovado</span>() => <span class="fn">media</span>() >= <span class="num">6.0</span>;
+
+  <span class="kw">void</span> <span class="fn">imprimir</span>() {
+    <span class="kw">var</span> <span class="var">s</span> = <span class="fn">aprovado</span>() ? <span class="str">"APROVADO ✓"</span> : <span class="str">"REPROVADO ✗"</span>;
+    print(<span class="str">"$nome | Média: ${media().toStringAsFixed(1)} | $s"</span>);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">a1</span> = <span class="cls">Aluno</span>();
+  <span class="var">a1</span>.nome  = <span class="str">"Maria"</span>; <span class="var">a1</span>.nota1 = <span class="num">8.0</span>; <span class="var">a1</span>.nota2 = <span class="num">7.5</span>;
+  <span class="var">a1</span>.<span class="fn">imprimir</span>(); <span class="cm">// Maria | Média: 7.8 | APROVADO ✓</span>
+
+  <span class="kw">var</span> <span class="var">a2</span> = <span class="cls">Aluno</span>();
+  <span class="var">a2</span>.nome  = <span class="str">"Pedro"</span>; <span class="var">a2</span>.nota1 = <span class="num">4.0</span>; <span class="var">a2</span>.nota2 = <span class="num">5.0</span>;
+  <span class="var">a2</span>.<span class="fn">imprimir</span>(); <span class="cm">// Pedro | Média: 4.5 | REPROVADO ✗</span>
+}</div>
+<div class="tip"><strong>Ternário:</strong> <code>condição ? valor_true : valor_false</code> — atalho elegante para if/else simples.</div>
+</div>`},
+
+{num:'05',title:'Construtores e Memória',date:'25/03/2026',
+quiz:{q:'O que é sobrecarga de construtores em Dart?',opts:['Dois arquivos com a mesma classe','Criar múltiplos construtores nomeados para a mesma classe','Chamar um construtor dentro do outro','Deletar um construtor'],c:1,ok:'Correto! Em Dart, sobrecarga se faz com construtores nomeados: Produto.gratis(), Produto.semEstoque().',no:'Dart usa construtores nomeados para sobrecarga. Ex: Produto(nome, preco) e Produto.gratis(nome).'},
+html:`<div class="l-tag tag-a">Aula 05 · 25/03/2026</div>
+<h1 class="l-title">Construtores e Gerenciamento de Memória</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~40 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-building"></i>O que é um construtor?</div>
+<div class="analogy"><strong>Analogia:</strong> O construtor é o formulário de cadastro. Ao criar o objeto, já preenche todos os dados de uma vez — sem atribuir campo por campo depois.</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Construtores padrão e nomeados</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Produto</span> {
+  <span class="typ">String</span> <span class="var">nome</span>;
+  <span class="typ">double</span> <span class="var">preco</span>;
+  <span class="typ">int</span>    <span class="var">estoque</span>;
+
+  <span class="cm">// Construtor padrão — atalho "this."</span>
+  <span class="cls">Produto</span>(<span class="kw">this</span>.nome, <span class="kw">this</span>.preco, <span class="kw">this</span>.estoque);
+
+  <span class="cm">// Construtor nomeado (sobrecarga)</span>
+  <span class="cls">Produto</span>.gratis(<span class="kw">this</span>.nome) : preco = <span class="num">0.0</span>, estoque = <span class="num">999</span>;
+
+  <span class="cls">Produto</span>.semEstoque(<span class="kw">this</span>.nome, <span class="kw">this</span>.preco) : estoque = <span class="num">0</span>;
+
+  <span class="kw">void</span> <span class="fn">info</span>() => print(<span class="str">"$nome | R$$preco | Estoque: $estoque"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="cls">Produto</span>(<span class="str">"Caderno"</span>, <span class="num">15.90</span>, <span class="num">50</span>).<span class="fn">info</span>();
+  <span class="cls">Produto</span>.gratis(<span class="str">"Apostila"</span>).<span class="fn">info</span>();
+  <span class="cls">Produto</span>.semEstoque(<span class="str">"Tablet"</span>, <span class="num">899.0</span>).<span class="fn">info</span>();
+}</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-trash"></i>Garbage Collector</div>
+<div class="prose"><p>O Dart tem <strong>gerenciamento automático de memória</strong>. O GC libera objetos sem referências automaticamente — você não precisa deletar nada manualmente.</p></div>
+<div class="analogy"><strong>Analogia:</strong> O GC é como uma faxineira automática. Quando você larga o copo e sai, ela leva embora sem que você precise pedir.</div>
+</div>`},
+
+{num:'06',title:'Encapsulamento',date:'01/04/2026',
+quiz:{q:'Em Dart, como tornamos um atributo privado?',opts:['Palavra "private"','Prefixando o nome com underscore _','Palavra "protected"','Colocando dentro de uma função'],c:1,ok:'Correto! O _ torna o membro privado ao arquivo. Não existe "private" como palavra em Dart.',no:'Em Dart, privacidade é com _ (underscore). Diferente de Java, não existe "private" como palavra-chave.'},
+html:`<div class="l-tag tag-a">Aula 06 · 01/04/2026</div>
+<h1 class="l-title">Encapsulamento</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span><span><i class="ti ti-lock"></i>OOP Core</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-shield"></i>Por que proteger dados?</div>
+<div class="analogy"><strong>Analogia do caixa eletrônico:</strong> Você não acessa o cofre do banco diretamente — usa o caixa (interface controlada). Encapsulamento é exatamente isso.</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Getters, Setters e validação</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">ContaBancaria</span> {
+  <span class="typ">String</span> <span class="var">titular</span>;
+  <span class="typ">double</span> <span class="var">_saldo</span>; <span class="cm">// _ = privado ao arquivo</span>
+
+  <span class="cls">ContaBancaria</span>(<span class="kw">this</span>.titular, <span class="kw">this</span>._saldo);
+
+  <span class="cm">// Getter — leitura controlada</span>
+  <span class="typ">double</span> <span class="kw">get</span> saldo => <span class="var">_saldo</span>;
+
+  <span class="kw">void</span> <span class="fn">depositar</span>(<span class="typ">double</span> <span class="var">v</span>) {
+    <span class="kw">if</span> (<span class="var">v</span> > <span class="num">0</span>) { <span class="var">_saldo</span> += <span class="var">v</span>; print(<span class="str">"Depósito OK. Saldo: $_saldo"</span>); }
+    <span class="kw">else</span> print(<span class="str">"Valor inválido!"</span>);
+  }
+
+  <span class="kw">void</span> <span class="fn">sacar</span>(<span class="typ">double</span> <span class="var">v</span>) {
+    <span class="kw">if</span> (<span class="var">v</span> > <span class="num">0</span> && <span class="var">v</span> <= <span class="var">_saldo</span>) { <span class="var">_saldo</span> -= <span class="var">v</span>; print(<span class="str">"OK. Saldo: $_saldo"</span>); }
+    <span class="kw">else</span> print(<span class="str">"Saldo insuficiente!"</span>);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">c</span> = <span class="cls">ContaBancaria</span>(<span class="str">"Leo"</span>, <span class="num">1000.0</span>);
+  print(<span class="var">c</span>.saldo);    <span class="cm">// OK — via getter</span>
+  <span class="cm">// c._saldo = 99999; // ERRO — acesso bloqueado!</span>
+  <span class="var">c</span>.<span class="fn">depositar</span>(<span class="num">500</span>);
+  <span class="var">c</span>.<span class="fn">sacar</span>(-<span class="num">50</span>); <span class="cm">// bloqueado pela validação</span>
+}</div>
+</div>`},
+
+{num:'07',title:'Comunicação entre Classes',date:'08/04/2026',
+quiz:{q:'Quando Turma contém objetos Aluno como atributo, isso é:',opts:['Herança','Polimorfismo','Composição — relação tem-um','Interface'],c:2,ok:'Exato! Composição = uma classe contém objetos de outra. Turma TEM alunos.',no:'Quando uma classe possui objetos de outra como atributo, chamamos de composição — relação "tem-um".'},
+html:`<div class="l-tag tag-a">Aula 07 · 08/04/2026</div>
+<h1 class="l-title">Comunicação entre Classes</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~50 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-sitemap"></i>Tipos de relacionamento</div>
+<div class="grid">
+<div class="card"><div class="card-icon"><i class="ti ti-git-branch"></i></div><div class="card-name">Herança (é-um)</div><div class="card-desc">Cachorro é-um Animal. Aluno é-uma Pessoa.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-puzzle"></i></div><div class="card-name">Composição (tem-um)</div><div class="card-desc">Turma tem Alunos. Carro tem Motor.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-link"></i></div><div class="card-name">Associação (usa-um)</div><div class="card-desc">Professor usa Sala. Pedido usa Cliente.</div></div>
+</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>Composição na prática</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Aluno</span> {
+  <span class="typ">String</span> <span class="var">nome</span>; <span class="typ">double</span> <span class="var">media</span>;
+  <span class="cls">Aluno</span>(<span class="kw">this</span>.nome, <span class="kw">this</span>.media);
+  <span class="kw">void</span> <span class="fn">info</span>() => print(<span class="str">"  $nome (média: $media)"</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Turma</span> {
+  <span class="typ">String</span> <span class="var">nome</span>;
+  <span class="typ">List</span>&lt;<span class="cls">Aluno</span>&gt; <span class="var">alunos</span> = []; <span class="cm">// Turma TEM Alunos</span>
+  <span class="cls">Turma</span>(<span class="kw">this</span>.nome);
+
+  <span class="kw">void</span> <span class="fn">add</span>(<span class="cls">Aluno</span> <span class="var">a</span>) => <span class="var">alunos</span>.add(<span class="var">a</span>);
+  <span class="kw">void</span> <span class="fn">listar</span>() {
+    print(<span class="str">"=== $nome ==="</span>);
+    <span class="kw">for</span> (<span class="kw">var</span> <span class="var">a</span> <span class="kw">in</span> <span class="var">alunos</span>) <span class="var">a</span>.<span class="fn">info</span>();
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">t</span> = <span class="cls">Turma</span>(<span class="str">"DS1A"</span>);
+  <span class="var">t</span>.<span class="fn">add</span>(<span class="cls">Aluno</span>(<span class="str">"Ana"</span>, <span class="num">8.5</span>));
+  <span class="var">t</span>.<span class="fn">add</span>(<span class="cls">Aluno</span>(<span class="str">"Bruno"</span>, <span class="num">7.0</span>));
+  <span class="var">t</span>.<span class="fn">listar</span>();
+}</div>
+</div>`},
+
+{num:'08',title:'Herança Simples',date:'22/04/2026',
+quiz:{q:'Qual palavra-chave em Dart indica herança?',opts:['inherits','implements','extends','super'],c:2,ok:'Perfeito! "extends" é herança em Dart e Java. "super" chama membros da classe pai.',no:'Em Dart usamos "extends" para herdar. "super" chama o construtor ou métodos do pai.'},
+html:`<div class="l-tag tag-a">Aula 08 · 22/04/2026 · 2º Bimestre</div>
+<h1 class="l-title">Herança Simples</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span><span><i class="ti ti-git-branch"></i>2º Bimestre</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-dna"></i>O que é herança?</div>
+<div class="analogy"><strong>Analogia:</strong> Filho herda características dos pais mas tem as suas próprias. Classe filha herda atributos e métodos do pai podendo adicionar ou modificar comportamentos.</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>extends e super</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Veiculo</span> { <span class="cm">// Superclasse (pai)</span>
+  <span class="typ">String</span> <span class="var">marca</span>; <span class="typ">int</span> <span class="var">ano</span>;
+  <span class="typ">double</span> <span class="var">vel</span> = <span class="num">0</span>;
+  <span class="cls">Veiculo</span>(<span class="kw">this</span>.marca, <span class="kw">this</span>.ano);
+
+  <span class="kw">void</span> <span class="fn">acelerar</span>(<span class="typ">double</span> <span class="var">v</span>) {
+    vel += <span class="var">v</span>; print(<span class="str">"$marca: $vel km/h"</span>);
+  }
+}
+
+<span class="kw">class</span> <span class="cls">Carro</span> <span class="kw">extends</span> <span class="cls">Veiculo</span> { <span class="cm">// Subclasse (filha)</span>
+  <span class="typ">int</span> <span class="var">portas</span>;
+  <span class="cm">// Chama construtor do pai com super()</span>
+  <span class="cls">Carro</span>(<span class="typ">String</span> <span class="var">m</span>, <span class="typ">int</span> <span class="var">a</span>, <span class="kw">this</span>.portas) : <span class="kw">super</span>(<span class="var">m</span>, <span class="var">a</span>);
+  <span class="kw">void</span> <span class="fn">abrirPortas</span>() => print(<span class="str">"Abrindo $portas portas"</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Moto</span> <span class="kw">extends</span> <span class="cls">Veiculo</span> {
+  <span class="cls">Moto</span>(<span class="typ">String</span> <span class="var">m</span>, <span class="typ">int</span> <span class="var">a</span>) : <span class="kw">super</span>(<span class="var">m</span>, <span class="var">a</span>);
+  <span class="kw">void</span> <span class="fn">empinar</span>() => print(<span class="str">"$marca empinando! 🏍️"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">c</span> = <span class="cls">Carro</span>(<span class="str">"Honda"</span>, <span class="num">2023</span>, <span class="num">4</span>);
+  <span class="var">c</span>.<span class="fn">acelerar</span>(<span class="num">60</span>);   <span class="cm">// herdado!</span>
+  <span class="var">c</span>.<span class="fn">abrirPortas</span>(); <span class="cm">// próprio do Carro</span>
+}</div>
+</div>`},
+
+{num:'09',title:'Herança Múltipla e Interfaces',date:'29/04/2026',
+quiz:{q:'O que são mixins em Dart?',opts:['Tipo de variável','Mecanismo para reutilizar código em múltiplas classes sem herança direta (using with)','Tipo de construtor','Sinônimo de interface'],c:1,ok:'Correto! Mixins (with) adicionam comportamentos reutilizáveis sem herança. Ex: class Pato extends Animal with Nadador, Voador.',no:'Mixins são usados com "with" para adicionar comportamentos sem herança. Ex: class Pato extends Animal with Nadador.'},
+html:`<div class="l-tag tag-a">Aula 09 · 29/04/2026</div>
+<h1 class="l-title">Herança Múltipla e Interfaces</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~50 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-plug"></i>implements — contrato obrigatório</div>
+<div class="analogy"><strong>Analogia:</strong> Interface é um contrato de emprego — quem assina (implements) é obrigado a cumprir tudo (implementar todos os métodos).</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">abstract class</span> <span class="cls">Imprimivel</span> {
+  <span class="kw">void</span> <span class="fn">imprimir</span>(); <span class="cm">// contrato</span>
+}
+<span class="kw">abstract class</span> <span class="cls">Exportavel</span> {
+  <span class="kw">void</span> <span class="fn">exportar</span>(<span class="typ">String</span> <span class="var">formato</span>);
+}
+
+<span class="cm">// Múltiplas interfaces</span>
+<span class="kw">class</span> <span class="cls">Relatorio</span> <span class="kw">implements</span> <span class="cls">Imprimivel</span>, <span class="cls">Exportavel</span> {
+  <span class="typ">String</span> <span class="var">titulo</span>;
+  <span class="cls">Relatorio</span>(<span class="kw">this</span>.titulo);
+  <span class="op">@override</span> <span class="kw">void</span> <span class="fn">imprimir</span>() => print(<span class="str">"Imprimindo: $titulo"</span>);
+  <span class="op">@override</span> <span class="kw">void</span> <span class="fn">exportar</span>(<span class="typ">String</span> <span class="var">f</span>) => print(<span class="str">"Exportando como $f"</span>);
+}</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-layers-intersect"></i>Mixins com with</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">mixin</span> <span class="cls">Nadador</span> { <span class="kw">void</span> <span class="fn">nadar</span>() => print(<span class="str">"Nadando 🏊"</span>); }
+<span class="kw">mixin</span> <span class="cls">Voador</span>  { <span class="kw">void</span> <span class="fn">voar</span>()  => print(<span class="str">"Voando ✈️"</span>); }
+
+<span class="kw">class</span> <span class="cls">Animal</span> { <span class="typ">String</span> <span class="var">nome</span>; <span class="cls">Animal</span>(<span class="kw">this</span>.nome); }
+
+<span class="kw">class</span> <span class="cls">Pato</span> <span class="kw">extends</span> <span class="cls">Animal</span> <span class="kw">with</span> <span class="cls">Nadador</span>, <span class="cls">Voador</span> {
+  <span class="cls">Pato</span>(<span class="typ">String</span> <span class="var">n</span>) : <span class="kw">super</span>(<span class="var">n</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">d</span> = <span class="cls">Pato</span>(<span class="str">"Donald"</span>);
+  <span class="var">d</span>.<span class="fn">nadar</span>(); <span class="var">d</span>.<span class="fn">voar</span>();
+}</div>
+<div class="diag"><div class="diag-title">extends vs implements vs with</div><div class="diag-flow"><div class="d-box d-blue">extends<br><small>herda código</small></div><span class="d-arrow">›</span><div class="d-box d-green">implements<br><small>cumpre contrato</small></div><span class="d-arrow">›</span><div class="d-box d-amber">with<br><small>adiciona mixin</small></div></div></div>
+</div>`},
+
+{num:'10',title:'Classes Abstratas',date:'06/05/2026',
+quiz:{q:'Uma classe abstrata pode ser instanciada diretamente?',opts:['Sim, sempre','Não — é molde, só subclasses concretas se instanciam','Sim, mas só com const','Só se não tiver métodos abstratos'],c:1,ok:'Correto! Classe abstrata nunca vira objeto diretamente. Você instancia apenas as filhas concretas.',no:'Classe abstrata não pode ser instanciada. É um modelo. Só as subclasses concretas podem virar objetos.'},
+html:`<div class="l-tag tag-a">Aula 10 · 06/05/2026</div>
+<h1 class="l-title">Classes Abstratas</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~40 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-template"></i>abstract class — o modelo</div>
+<div class="analogy"><strong>Analogia:</strong> "Animal" é abstrato — você nunca viu um "Animal genérico". Você viu cachorro, gato, peixe. A classe abstrata define o que toda subclasse deve ter/fazer.</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">abstract class</span> <span class="cls">Forma</span> {
+  <span class="typ">String</span> <span class="var">cor</span>;
+  <span class="cls">Forma</span>(<span class="kw">this</span>.cor);
+
+  <span class="cm">// Método abstrato — subclasses DEVEM implementar</span>
+  <span class="typ">double</span> <span class="fn">calcularArea</span>();
+
+  <span class="cm">// Método concreto — já vem implementado</span>
+  <span class="kw">void</span> <span class="fn">descricao</span>() =>
+    print(<span class="str">"Cor: $cor | Área: ${calcularArea().toStringAsFixed(2)}"</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Circulo</span> <span class="kw">extends</span> <span class="cls">Forma</span> {
+  <span class="typ">double</span> <span class="var">raio</span>;
+  <span class="cls">Circulo</span>(<span class="typ">String</span> <span class="var">c</span>, <span class="kw">this</span>.raio) : <span class="kw">super</span>(<span class="var">c</span>);
+  <span class="op">@override</span> <span class="typ">double</span> <span class="fn">calcularArea</span>() => <span class="num">3.14</span> * raio * raio;
+}
+
+<span class="kw">class</span> <span class="cls">Retangulo</span> <span class="kw">extends</span> <span class="cls">Forma</span> {
+  <span class="typ">double</span> <span class="var">l</span>, <span class="var">a</span>;
+  <span class="cls">Retangulo</span>(<span class="typ">String</span> <span class="var">c</span>, <span class="kw">this</span>.l, <span class="kw">this</span>.a) : <span class="kw">super</span>(<span class="var">c</span>);
+  <span class="op">@override</span> <span class="typ">double</span> <span class="fn">calcularArea</span>() => l * <span class="var">a</span>;
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="cm">// Forma f = Forma("azul"); // ERRO! Não instancia abstrata</span>
+  <span class="cls">Forma</span> <span class="var">c</span> = <span class="cls">Circulo</span>(<span class="str">"vermelho"</span>, <span class="num">5</span>);
+  <span class="cls">Forma</span> <span class="var">r</span> = <span class="cls">Retangulo</span>(<span class="str">"azul"</span>, <span class="num">4</span>, <span class="num">6</span>);
+  <span class="var">c</span>.<span class="fn">descricao</span>(); <span class="var">r</span>.<span class="fn">descricao</span>();
+}</div>
+</div>`},
+
+{num:'11',title:'Polimorfismo',date:'11/05/2026',
+quiz:{q:'@override em Dart indica que a filha está:',opts:['Criando método novo','Reescrevendo um método herdado do pai','Tornando o método privado','Chamando o método do pai'],c:1,ok:'Correto! @override marca sobrescrita — a filha reescreve o comportamento herdado.',no:'@override = sobrescrita. A filha reescreve o método herdado. Diferente de sobrecarga (mesmo nome, parâmetros diferentes).'},
+html:`<div class="l-tag tag-a">Aula 11 · 11/05/2026</div>
+<h1 class="l-title">Polimorfismo</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-transform"></i>Mesmo comando, resultados diferentes</div>
+<div class="analogy"><strong>Analogia:</strong> "fazer barulho" — cachorro late, gato mia, pássaro canta. O comando é igual; quem executa define o resultado.</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">abstract class</span> <span class="cls">Animal</span> {
+  <span class="typ">String</span> <span class="var">nome</span>;
+  <span class="cls">Animal</span>(<span class="kw">this</span>.nome);
+  <span class="kw">void</span> <span class="fn">fazerBarulho</span>(); <span class="cm">// abstrato</span>
+  <span class="kw">void</span> <span class="fn">dormir</span>() => print(<span class="str">"$nome dormindo 😴"</span>); <span class="cm">// concreto</span>
+}
+
+<span class="kw">class</span> <span class="cls">Cachorro</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+  <span class="cls">Cachorro</span>(<span class="typ">String</span> <span class="var">n</span>) : <span class="kw">super</span>(<span class="var">n</span>);
+  <span class="op">@override</span> <span class="kw">void</span> <span class="fn">fazerBarulho</span>() => print(<span class="str">"$nome: Au au! 🐶"</span>);
+}
+<span class="kw">class</span> <span class="cls">Gato</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+  <span class="cls">Gato</span>(<span class="typ">String</span> <span class="var">n</span>) : <span class="kw">super</span>(<span class="var">n</span>);
+  <span class="op">@override</span> <span class="kw">void</span> <span class="fn">fazerBarulho</span>() => print(<span class="str">"$nome: Miau! 🐱"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="typ">List</span>&lt;<span class="cls">Animal</span>&gt; <span class="var">animais</span> = [
+    <span class="cls">Cachorro</span>(<span class="str">"Rex"</span>), <span class="cls">Gato</span>(<span class="str">"Mimi"</span>), <span class="cls">Cachorro</span>(<span class="str">"Bob"</span>)
+  ];
+  <span class="cm">// Polimorfismo — cada um responde diferente</span>
+  <span class="kw">for</span> (<span class="kw">var</span> <span class="var">a</span> <span class="kw">in</span> <span class="var">animais</span>) <span class="var">a</span>.<span class="fn">fazerBarulho</span>();
+}</div>
+</div>`},
+
+{num:'12',title:'Sobrecarga de Operadores',date:'18/05/2026',
+quiz:{q:'Como sobrescrevemos o operador + em Dart?',opts:['function plus(outro)','TipoRet operator +(TipoParam outro) { ... }','override +()','overload +'],c:1,ok:'Correto! Sintaxe Dart: TipoRetorno operator +(TipoParam outro). Ex: Vetor2D operator +(Vetor2D o).',no:'Em Dart: TipoRetorno operator +(Param outro) { ... }. É a palavra reservada "operator" seguida do símbolo.'},
+html:`<div class="l-tag tag-a">Aula 12 · 18/05/2026</div>
+<h1 class="l-title">Sobrecarga de Operadores</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~35 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-math"></i>Operadores para suas classes</div>
+<div class="analogy"><strong>Analogia:</strong> "+" para números existe nativamente. Mas e para somar dois vetores? Com sobrecarga você ensina ao Dart o que o operador significa para a sua classe.</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Vetor2D</span> {
+  <span class="typ">double</span> <span class="var">x</span>, <span class="var">y</span>;
+  <span class="cls">Vetor2D</span>(<span class="kw">this</span>.x, <span class="kw">this</span>.y);
+
+  <span class="cls">Vetor2D</span> <span class="kw">operator</span> +(<span class="cls">Vetor2D</span> <span class="var">o</span>) => <span class="cls">Vetor2D</span>(x+<span class="var">o</span>.x, y+<span class="var">o</span>.y);
+  <span class="cls">Vetor2D</span> <span class="kw">operator</span> *(<span class="typ">double</span> <span class="var">s</span>) => <span class="cls">Vetor2D</span>(x*<span class="var">s</span>, y*<span class="var">s</span>);
+
+  <span class="op">@override</span>
+  <span class="typ">bool</span> <span class="kw">operator</span> ==(<span class="cls">Object</span> <span class="var">o</span>) =>
+    <span class="var">o</span> <span class="kw">is</span> <span class="cls">Vetor2D</span> && x == <span class="var">o</span>.x && y == <span class="var">o</span>.y;
+
+  <span class="op">@override</span>
+  <span class="typ">String</span> <span class="fn">toString</span>() => <span class="str">"($x, $y)"</span>;
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">v1</span> = <span class="cls">Vetor2D</span>(<span class="num">1</span>, <span class="num">2</span>);
+  <span class="kw">var</span> <span class="var">v2</span> = <span class="cls">Vetor2D</span>(<span class="num">3</span>, <span class="num">4</span>);
+  print(<span class="var">v1</span> + <span class="var">v2</span>);  <span class="cm">// (4.0, 6.0)</span>
+  print(<span class="var">v1</span> * <span class="num">2</span>);   <span class="cm">// (2.0, 4.0)</span>
+  print(<span class="var">v1</span> == <span class="cls">Vetor2D</span>(<span class="num">1</span>,<span class="num">2</span>)); <span class="cm">// true</span>
+}</div>
+</div>`},
+
+{num:'13',title:'Tipos Genéricos e Membros Estáticos',date:'20/05/2026',
+quiz:{q:'O que membros "static" têm de diferente?',opts:['São mais rápidos','Pertencem à classe, não a uma instância — acessados por NomeClasse.membro','São automaticamente privados','Só funcionam em construtores'],c:1,ok:'Correto! static pertence à CLASSE. Você acessa com NomeClasse.membro, sem criar objeto.',no:'Membros static pertencem à classe. Acessados por NomeClasse.membro — não por objeto.membro.'},
+html:`<div class="l-tag tag-a">Aula 13 · 20/05/2026</div>
+<h1 class="l-title">Tipos Genéricos e Membros Estáticos</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~50 min</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-variable"></i>Generics — código reutilizável tipado</div>
+<div class="analogy"><strong>Analogia:</strong> Uma caixa genérica pode guardar qualquer coisa. <code>Pilha&lt;int&gt;</code> guarda inteiros, <code>Pilha&lt;String&gt;</code> guarda textos — mesmo código, tipos diferentes.</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Pilha</span>&lt;<span class="typ">T</span>&gt; { <span class="cm">// T = tipo genérico</span>
+  <span class="kw">final</span> <span class="typ">List</span>&lt;<span class="typ">T</span>&gt; <span class="var">_itens</span> = [];
+
+  <span class="kw">void</span> <span class="fn">push</span>(<span class="typ">T</span> <span class="var">item</span>) => <span class="var">_itens</span>.add(<span class="var">item</span>);
+
+  <span class="typ">T</span> <span class="fn">pop</span>() {
+    <span class="kw">if</span> (<span class="var">_itens</span>.isEmpty) <span class="kw">throw</span> <span class="cls">Exception</span>(<span class="str">"Pilha vazia!"</span>);
+    <span class="kw">return</span> <span class="var">_itens</span>.removeLast();
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">p</span> = <span class="cls">Pilha</span>&lt;<span class="typ">int</span>&gt;();
+  <span class="var">p</span>.<span class="fn">push</span>(<span class="num">10</span>); <span class="var">p</span>.<span class="fn">push</span>(<span class="num">20</span>); <span class="var">p</span>.<span class="fn">push</span>(<span class="num">30</span>);
+  print(<span class="var">p</span>.<span class="fn">pop</span>()); <span class="cm">// 30 — LIFO</span>
+}</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-topology-star"></i>static — pertence à classe</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">class</span> <span class="cls">Banco</span> {
+  <span class="kw">static</span> <span class="kw">const</span> <span class="typ">String</span> <span class="var">nome</span> = <span class="str">"Banco do Brasil"</span>;
+  <span class="kw">static</span> <span class="typ">int</span> <span class="var">totalContas</span> = <span class="num">0</span>;
+
+  <span class="typ">String</span> <span class="var">titular</span>;
+  <span class="cls">Banco</span>(<span class="kw">this</span>.titular) { totalContas++; }
+
+  <span class="kw">static</span> <span class="kw">void</span> <span class="fn">info</span>() =>
+    print(<span class="str">"$nome | Contas: $totalContas"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="cls">Banco</span>(<span class="str">"Ana"</span>); <span class="cls">Banco</span>(<span class="str">"Bruno"</span>);
+  <span class="cls">Banco</span>.<span class="fn">info</span>(); <span class="cm">// Banco do Brasil | Contas: 2</span>
+  <span class="cm">// Acessa pela CLASSE, não pelo objeto!</span>
+}</div>
+</div>`},
+
+{num:'14',title:'Padrão MVC',date:'01/06/2026',
+quiz:{q:'No MVC, qual camada contém dados e regras de negócio?',opts:['View','Controller','Model','Repository'],c:2,ok:'Correto! Model = dados e regras. View = exibição. Controller = orquestra os dois.',no:'Model contém dados e regras de negócio. View exibe. Controller orquestra a comunicação entre Model e View.'},
+html:`<div class="l-tag tag-p">Projeto · 01/06/2026</div>
+<h1 class="l-title">Padrão Arquitetural MVC</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~60 min</span><span><i class="ti ti-layout"></i>Arquitetura</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-layout"></i>O que é MVC?</div>
+<div class="prose"><p>MVC separa a aplicação em 3 responsabilidades: <strong>Model</strong> (dados + regras), <strong>View</strong> (exibição) e <strong>Controller</strong> (lógica de controle). Código mais organizado, testável e manutenível.</p></div>
+<div class="diag"><div class="diag-title">Fluxo MVC</div><div class="diag-flow"><div class="d-box d-blue">View<br><small>Exibe dados</small></div><span class="d-arrow">›</span><div class="d-box d-amber">Controller<br><small>Orquestra</small></div><span class="d-arrow">›</span><div class="d-box d-green">Model<br><small>Dados + Regras</small></div></div></div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>MVC em Dart — sistema de produtos</div>
+<div class="code-block"><span class="c-lang">Dart · Model</span><span class="cm">// MODEL — dados puros</span>
+<span class="kw">class</span> <span class="cls">Produto</span> {
+  <span class="typ">int</span> <span class="var">id</span>; <span class="typ">String</span> <span class="var">nome</span>; <span class="typ">double</span> <span class="var">preco</span>;
+  <span class="cls">Produto</span>(<span class="kw">this</span>.id, <span class="kw">this</span>.nome, <span class="kw">this</span>.preco);
+}</div>
+<div class="code-block"><span class="c-lang">Dart · Controller</span><span class="cm">// CONTROLLER — lógica de acesso</span>
+<span class="kw">class</span> <span class="cls">ProdutoController</span> {
+  <span class="kw">final</span> <span class="typ">List</span>&lt;<span class="cls">Produto</span>&gt; <span class="var">_lista</span> = [];
+  <span class="typ">int</span> <span class="var">_id</span> = <span class="num">1</span>;
+
+  <span class="kw">void</span> <span class="fn">adicionar</span>(<span class="typ">String</span> <span class="var">n</span>, <span class="typ">double</span> <span class="var">p</span>) =>
+    <span class="var">_lista</span>.add(<span class="cls">Produto</span>(_id++, <span class="var">n</span>, <span class="var">p</span>));
+
+  <span class="typ">List</span>&lt;<span class="cls">Produto</span>&gt; <span class="fn">listar</span>() => <span class="typ">List</span>.from(<span class="var">_lista</span>);
+}</div>
+<div class="code-block"><span class="c-lang">Dart · View + main</span><span class="cm">// VIEW — apresentação</span>
+<span class="kw">class</span> <span class="cls">ProdutoView</span> {
+  <span class="kw">void</span> <span class="fn">exibir</span>(<span class="typ">List</span>&lt;<span class="cls">Produto</span>&gt; <span class="var">lista</span>) {
+    print(<span class="str">"=== Produtos ==="</span>);
+    <span class="kw">for</span> (<span class="kw">var</span> <span class="var">p</span> <span class="kw">in</span> <span class="var">lista</span>)
+      print(<span class="str">"[${p.id}] ${p.nome} — R${p.preco}"</span>);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">ctrl</span> = <span class="cls">ProdutoController</span>();
+  <span class="kw">var</span> <span class="var">view</span> = <span class="cls">ProdutoView</span>();
+  <span class="var">ctrl</span>.<span class="fn">adicionar</span>(<span class="str">"Notebook"</span>, <span class="num">2999.0</span>);
+  <span class="var">ctrl</span>.<span class="fn">adicionar</span>(<span class="str">"Mouse"</span>, <span class="num">89.90</span>);
+  <span class="var">view</span>.<span class="fn">exibir</span>(<span class="var">ctrl</span>.<span class="fn">listar</span>());
+}</div>
+</div>`},
+
+{num:'15',title:'Padrão DAO/VO e Arquivos',date:'03/06/2026',
+quiz:{q:'O que significa DAO?',opts:['Data Abstraction Object','Data Access Object — camada de acesso a dados','Dart Abstract Override','Default Access Object'],c:1,ok:'Correto! DAO = Data Access Object. Isola todo código de acesso a dados (banco, arquivo) do resto da app.',no:'DAO = Data Access Object. É o padrão que separa o acesso a dados (CRUD) do restante da aplicação.'},
+html:`<div class="l-tag tag-a">Aula 15 · 03/06/2026</div>
+<h1 class="l-title">Padrão DAO/VO e Manipulação de Arquivos</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~60 min</span><span><i class="ti ti-database"></i>Padrões</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-building-store"></i>VO e DAO — o que são?</div>
+<div class="grid">
+<div class="card"><div class="card-icon"><i class="ti ti-box"></i></div><div class="card-name">VO — Value Object</div><div class="card-desc">Representa dados puros. Apenas atributos e getters. Sem lógica de negócio. Imutável idealmente.</div></div>
+<div class="card"><div class="card-icon"><i class="ti ti-database"></i></div><div class="card-name">DAO — Data Access Object</div><div class="card-desc">Isola todo acesso a dados (arquivo, banco). O resto da app não sabe como os dados são persistidos.</div></div>
+</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>DAO + Arquivo em Dart</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="kw">import</span> <span class="str">'dart:io'</span>;
+
+<span class="cm">// VO — apenas dados, imutável</span>
+<span class="kw">class</span> <span class="cls">ProdutoVO</span> {
+  <span class="kw">final</span> <span class="typ">int</span> <span class="var">id</span>;
+  <span class="kw">final</span> <span class="typ">String</span> <span class="var">nome</span>;
+  <span class="kw">final</span> <span class="typ">double</span> <span class="var">preco</span>;
+  <span class="cls">ProdutoVO</span>(<span class="kw">this</span>.id, <span class="kw">this</span>.nome, <span class="kw">this</span>.preco);
+
+  <span class="typ">String</span> <span class="fn">toCsv</span>() => <span class="str">"$id;$nome;$preco"</span>;
+
+  <span class="kw">factory</span> <span class="cls">ProdutoVO</span>.fromCsv(<span class="typ">String</span> <span class="var">linha</span>) {
+    <span class="kw">var</span> <span class="var">p</span> = linha.split(<span class="str">";"</span>);
+    <span class="kw">return</span> <span class="cls">ProdutoVO</span>(<span class="typ">int</span>.parse(<span class="var">p</span>[<span class="num">0</span>]), <span class="var">p</span>[<span class="num">1</span>], <span class="typ">double</span>.parse(<span class="var">p</span>[<span class="num">2</span>]));
+  }
+}
+
+<span class="cm">// DAO — acesso a dados</span>
+<span class="kw">class</span> <span class="cls">ProdutoDAO</span> {
+  <span class="kw">final</span> <span class="var">arquivo</span> = <span class="str">"produtos.csv"</span>;
+
+  <span class="kw">void</span> <span class="fn">salvar</span>(<span class="cls">ProdutoVO</span> <span class="var">p</span>) {
+    <span class="cls">File</span>(arquivo).writeAsStringSync(
+      <span class="var">p</span>.<span class="fn">toCsv</span>() + <span class="str">'\n'</span>, mode: <span class="cls">FileMode</span>.append);
+  }
+
+  <span class="typ">List</span>&lt;<span class="cls">ProdutoVO</span>&gt; <span class="fn">listar</span>() {
+    <span class="kw">var</span> <span class="var">f</span> = <span class="cls">File</span>(arquivo);
+    <span class="kw">if</span> (!<span class="var">f</span>.existsSync()) <span class="kw">return</span> [];
+    <span class="kw">return</span> <span class="var">f</span>.readAsLinesSync()
+      .where((<span class="var">l</span>) => <span class="var">l</span>.isNotEmpty)
+      .map(<span class="cls">ProdutoVO</span>.fromCsv)
+      .toList();
+  }
+}</div>
+<div class="tip"><strong>Para a prova:</strong> VO = dados imutáveis, sem lógica. DAO = acesso a dados (CRUD). Controller = usa DAO + VO para orquestrar.</div>
+</div>`},
+
+{num:'16',title:'Tratamento de Exceções',date:'10/06/2026',
+quiz:{q:'Qual bloco em Dart sempre executa, com ou sem exceção?',opts:['catch','on','finally','else'],c:2,ok:'Correto! "finally" sempre executa — ideal para liberar recursos (fechar arquivo, encerrar conexão).',no:'"finally" executa SEMPRE, com ou sem erro. Perfeito para limpeza de recursos.'},
+html:`<div class="l-tag tag-a">Aula 16 · 10/06/2026</div>
+<h1 class="l-title">Tratamento de Exceções</h1>
+<div class="l-meta"><span><i class="ti ti-clock"></i>~45 min</span><span><i class="ti ti-alert-triangle"></i>Robustez</span></div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-bug"></i>O que são exceções?</div>
+<div class="analogy"><strong>Analogia:</strong> Você vai ao mercado comprar ovos, mas a prateleira está vazia — isso é uma exceção. Você pode tratar: comprar substituto (catch), ir a outro mercado (on TipoEspecífico), ou registrar e ir embora (finally).</div>
+</div>
+<div class="sec">
+<div class="sec-title"><i class="ti ti-code"></i>try / on / catch / finally</div>
+<div class="code-block"><span class="c-lang">Dart</span><span class="cm">// Exceção personalizada</span>
+<span class="kw">class</span> <span class="cls">SaldoInsuficienteException</span> <span class="kw">implements</span> <span class="cls">Exception</span> {
+  <span class="kw">final</span> <span class="typ">String</span> <span class="var">msg</span>;
+  <span class="cls">SaldoInsuficienteException</span>(<span class="kw">this</span>.msg);
+  <span class="op">@override</span> <span class="typ">String</span> <span class="fn">toString</span>() => <span class="str">"Erro: $msg"</span>;
+}
+
+<span class="kw">class</span> <span class="cls">Conta</span> {
+  <span class="typ">double</span> <span class="var">_saldo</span>;
+  <span class="cls">Conta</span>(<span class="kw">this</span>._saldo);
+
+  <span class="kw">void</span> <span class="fn">sacar</span>(<span class="typ">double</span> <span class="var">v</span>) {
+    <span class="kw">if</span> (<span class="var">v</span> > <span class="var">_saldo</span>)
+      <span class="kw">throw</span> <span class="cls">SaldoInsuficienteException</span>(
+        <span class="str">"Solicitado R$$v, disponível R$$_saldo"</span>);
+    <span class="var">_saldo</span> -= <span class="var">v</span>;
+    print(<span class="str">"Saque OK! Saldo: $_saldo"</span>);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> <span class="var">c</span> = <span class="cls">Conta</span>(<span class="num">500</span>);
+  <span class="kw">try</span> {
+    <span class="var">c</span>.<span class="fn">sacar</span>(<span class="num">200</span>);   <span class="cm">// OK</span>
+    <span class="var">c</span>.<span class="fn">sacar</span>(<span class="num">1000</span>);  <span class="cm">// lança!</span>
+  } <span class="kw">on</span> <span class="cls">SaldoInsuficienteException</span> <span class="kw">catch</span> (<span class="var">e</span>) {
+    print(<span class="str">"Capturado: $e"</span>);      <span class="cm">// tipo específico</span>
+  } <span class="kw">catch</span> (<span class="var">e</span>) {
+    print(<span class="str">"Erro genérico: $e"</span>);  <span class="cm">// qualquer outro</span>
+  } <span class="kw">finally</span> {
+    print(<span class="str">"Encerrado."</span>); <span class="cm">// SEMPRE executa</span>
+  }
+}</div>
+<div class="warn"><strong>Para a prova:</strong> <code>on Tipo catch(e)</code> = tipo específico. <code>catch(e)</code> = genérico. <code>finally</code> = sempre executa. <code>throw</code> = lança a exceção.</div>
+</div>`}
+];
+
+const NAV=[
+  {s:'1º Bimestre — Fundamentos'},
+  {i:0},{i:1},{i:2},{i:3},{i:4},{i:5},{i:6},
+  {s:'2º Bimestre — Avançado'},
+  {i:7},{i:8},{i:9},{i:10},{i:11},{i:12},
+  {s:'Padrões e Projetos'},
+  {i:13},{i:14},{i:15}
+];
+
+let cur=0;
+const done=new Set();
+
+function buildNav(){
+  const nl=document.getElementById('navList');
+  nl.innerHTML='';
+  NAV.forEach(item=>{
+    if(item.s){
+      const d=document.createElement('div');
+      d.className='nav-sec';d.textContent=item.s;nl.appendChild(d);
+    }else{
+      const l=L[item.i];
+      const d=document.createElement('div');
+      d.className='nav-item'+(item.i===cur?' active':'')+(done.has(item.i)?' done':'');
+      d.innerHTML=`<div class="nav-dot"></div><span class="nav-label">${l.title}</span><span class="nav-badge">Aula ${l.num}</span>`;
+      d.onclick=()=>goTo(item.i);
+      nl.appendChild(d);
+    }
+  });
+}
+
+function renderLesson(idx){
+  const l=L[idx];
+  const ct=document.getElementById('ct');
+  let qh='';
+  if(l.quiz){
+    const q=l.quiz,lt=['A','B','C','D'];
+    qh=`<div class="sec"><div class="sec-title"><i class="ti ti-help-circle"></i>Quiz — vai cair na prova!</div>
+      <div class="quiz-q">${q.q}</div>
+      ${q.opts.map((o,i)=>`<div class="q-opt" onclick="chk(this,${i},${q.c},${idx})" data-i="${i}"><div class="q-letter">${lt[i]}</div>${o}</div>`).join('')}
+      <div class="q-fb ok" id="ok${idx}"><i class="ti ti-circle-check"></i> ${q.ok}</div>
+      <div class="q-fb no" id="no${idx}"><i class="ti ti-x"></i> ${q.no}</div>
+    </div>`;
+  }
+  ct.innerHTML=l.html+qh;
+  document.getElementById('topT').textContent=`Aula ${l.num} — ${l.title}`;
+  ct.scrollTop=0;
+  buildNav();updateProg();
+}
+
+function chk(el,chosen,correct,idx){
+  const opts=el.parentElement.querySelectorAll('.q-opt');
+  opts.forEach((o,i)=>o.classList.add(i===correct?'ok':'dis'));
+  if(chosen!==correct)el.classList.add('no');
+  document.getElementById(chosen===correct?'ok'+idx:'no'+idx).classList.add('show');
+  if(chosen===correct){done.add(cur);updateProg();buildNav();}
+}
+
+function updateProg(){
+  const p=Math.round(done.size/L.length*100);
+  document.getElementById('pb').style.width=p+'%';
+  document.getElementById('pl').textContent=`${done.size} de ${L.length} aulas concluídas`;
+}
+
+function goTo(i){cur=i;renderLesson(i);}
+function next(){done.add(cur);if(cur<L.length-1)goTo(cur+1);else{updateProg();buildNav();}}
+function prev(){if(cur>0)goTo(cur-1);}
+
+goTo(0);
+</script>
+</body>
+</html>
